@@ -1,0 +1,243 @@
+{% extends 'base.html' %}
+
+{% block title %}Impact Dashboard - Community Renewable Energy Portal{% endblock %}
+
+{% block content %}
+<!-- Dashboard Header -->
+<div class="py-5 bg-white border-bottom">
+  <div class="container">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+      <div>
+        <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-1 rounded-pill mb-2">
+          Real-time Analytics
+        </span>
+        <h1 class="fw-bold mb-1">Community Renewable Energy Dashboard</h1>
+        <p class="text-muted mb-0">Live aggregated metrics tracking community generation, financial savings, and climate dividends.</p>
+      </div>
+      <div class="d-flex gap-2">
+        <a href="{{ url_for('calculator') }}" class="btn btn-outline-emerald btn-sm fw-semibold">
+          <i class="bi bi-calculator me-1"></i> New Calculation
+        </a>
+        <a href="{{ url_for('projects') }}" class="btn btn-emerald btn-sm fw-semibold">
+          <i class="bi bi-plus-circle me-1"></i> Propose Project
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="py-5">
+  <div class="container">
+    <!-- Top 5 Core KPI Cards -->
+    <div class="row g-4 mb-5">
+      <!-- 1. Total Registered Users -->
+      <div class="col-lg col-md-4 col-sm-6">
+        <div class="stat-card h-100">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <span class="stat-label">Registered Members</span>
+            <div class="p-2 bg-success-subtle text-success rounded-3"><i class="bi bi-people-fill fs-5"></i></div>
+          </div>
+          <div class="stat-value text-dark">{{ total_users }}</div>
+          <small class="text-success"><i class="bi bi-graph-up-arrow me-1"></i> +12% this month</small>
+        </div>
+      </div>
+
+      <!-- 2. Renewable Energy Projects -->
+      <div class="col-lg col-md-4 col-sm-6">
+        <div class="stat-card h-100">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <span class="stat-label">Renewable Projects</span>
+            <div class="p-2 bg-primary-subtle text-primary rounded-3"><i class="bi bi-grid-fill fs-5"></i></div>
+          </div>
+          <div class="stat-value text-dark">{{ total_projects }}</div>
+          <small class="text-muted">{{ active_projects }} active generating</small>
+        </div>
+      </div>
+
+      <!-- 3. Clean Power Generated -->
+      <div class="col-lg col-md-4 col-sm-6">
+        <div class="stat-card h-100">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <span class="stat-label">Clean Energy</span>
+            <div class="p-2 bg-warning-subtle text-warning rounded-3"><i class="bi bi-lightning-charge-fill fs-5"></i></div>
+          </div>
+          <div class="stat-value text-dark">{{ total_generation }} <span class="fs-6 text-muted">MWh</span></div>
+          <small class="text-success"><i class="bi bi-check-circle me-1"></i> 100% renewable mix</small>
+        </div>
+      </div>
+
+      <!-- 4. Estimated Energy Savings -->
+      <div class="col-lg col-md-6 col-sm-6">
+        <div class="stat-card h-100">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <span class="stat-label">Estimated Bill Savings</span>
+            <div class="p-2 bg-emerald-subtle text-success rounded-3" style="background-color: #ecfdf5;"><i class="bi bi-cash-stack fs-5"></i></div>
+          </div>
+          <div class="stat-value text-success">${{ "%.0f"|format(estimated_community_savings) }}</div>
+          <small class="text-muted">Avoided utility bills/yr</small>
+        </div>
+      </div>
+
+      <!-- 5. Environmental Benefits (CO2 Offset) -->
+      <div class="col-lg col-md-6 col-sm-12">
+        <div class="stat-card h-100">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <span class="stat-label">Carbon Offset</span>
+            <div class="p-2 bg-info-subtle text-info rounded-3"><i class="bi bi-cloud-slash-fill fs-5"></i></div>
+          </div>
+          <div class="stat-value text-dark">{{ total_co2 }} <span class="fs-6 text-muted">Tons</span></div>
+          <small class="text-success"><i class="bi bi-tree-fill me-1"></i> ~{{ (total_co2 * 1000 / 21.77)|round|int }} trees equiv</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Analytics Charts Row -->
+    <div class="row g-4 mb-5">
+      <!-- Chart 1: Energy Generation Mix by Source -->
+      <div class="col-lg-5">
+        <div class="p-4 bg-white rounded-4 border shadow-sm h-100">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold mb-0 text-dark"><i class="bi bi-pie-chart-fill text-warning me-2"></i> Clean Generation Mix</h5>
+            <span class="badge bg-light text-muted border">Annual MWh</span>
+          </div>
+          <p class="text-muted small mb-4">Breakdown of electricity generated across solar, wind, hydro, and biomass community installations.</p>
+          <div style="height: 280px; position: relative;">
+            <canvas id="generationMixChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chart 2: 12-Month Generation & Savings Trend -->
+      <div class="col-lg-7">
+        <div class="p-4 bg-white rounded-4 border shadow-sm h-100">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold mb-0 text-dark"><i class="bi bi-graph-up text-primary me-2"></i> Generation & Cost Savings Trend</h5>
+            <span class="badge bg-light text-muted border">12-Month Profile</span>
+          </div>
+          <p class="text-muted small mb-4">Monthly clean power output (MWh) and aggregated utility bill savings ($ Thousands).</p>
+          <div style="height: 280px;">
+            <canvas id="monthlyTrendChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Community Participation & Recent Activity Row -->
+    <div class="row g-4 mb-5">
+      <!-- Left: Recent Community Stories / Experience Sharing -->
+      <div class="col-lg-6">
+        <div class="p-4 bg-white rounded-4 border shadow-sm h-100">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold mb-0 text-dark"><i class="bi bi-chat-quote-fill text-success me-2"></i> Recent Community Discussions</h5>
+            <a href="{{ url_for('community') }}" class="btn btn-sm btn-link text-success fw-semibold p-0">View All</a>
+          </div>
+          <div class="d-flex flex-column gap-3">
+            {% for post in recent_posts %}
+              <div class="p-3 bg-light rounded-3 border">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <strong class="text-dark small">{{ post.author.name }}</strong>
+                  <span class="badge bg-white text-secondary border small">{{ post.category }}</span>
+                </div>
+                <h6 class="fw-bold mb-1 small text-dark">{{ post.title }}</h6>
+                <p class="text-muted small mb-2">{{ post.content[:95] }}...</p>
+                <div class="d-flex justify-content-between small text-muted">
+                  <span><i class="bi bi-hand-thumbs-up text-success me-1"></i> {{ post.upvotes }} upvotes</span>
+                  <span><i class="bi bi-chat-left text-primary me-1"></i> {{ post.comments|length }} replies</span>
+                </div>
+              </div>
+            {% else %}
+              <p class="text-muted small">No recent discussions found.</p>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Environmental Benefits Breakdown -->
+      <div class="col-lg-6">
+        <div class="p-4 bg-white rounded-4 border shadow-sm h-100">
+          <h5 class="fw-bold mb-3 text-dark"><i class="bi bi-shield-check text-info me-2"></i> Community Environmental Scorecard</h5>
+          <p class="text-muted small mb-4">Cumulative ecological dividends generated by community renewable installations to date:</p>
+
+          <div class="d-flex flex-column gap-3">
+            <div class="p-3 bg-light rounded-3 border d-flex align-items-center justify-content-between">
+              <div class="d-flex align-items-center gap-3">
+                <div class="p-2 bg-success text-white rounded-circle"><i class="bi bi-tree fs-5"></i></div>
+                <div>
+                  <strong class="text-dark d-block">Forest Tree Equivalency</strong>
+                  <small class="text-muted">Equivalent carbon sequestered by mature urban trees</small>
+                </div>
+              </div>
+              <div class="text-end">
+                <span class="fs-5 fw-bold text-success">{{ ((total_co2 * 1000) / 21.77)|round|int|string }}</span>
+                <small class="d-block text-muted">Trees</small>
+              </div>
+            </div>
+
+            <div class="p-3 bg-light rounded-3 border d-flex align-items-center justify-content-between">
+              <div class="d-flex align-items-center gap-3">
+                <div class="p-2 bg-info text-white rounded-circle"><i class="bi bi-fuel-pump fs-5"></i></div>
+                <div>
+                  <strong class="text-dark d-block">Avoided Gasoline Combustion</strong>
+                  <small class="text-muted">Equivalent gallons of fossil fuel kept in the ground</small>
+                </div>
+              </div>
+              <div class="text-end">
+                <span class="fs-5 fw-bold text-info">{{ ((total_co2 * 2480) / 22)|round|int|string }}</span>
+                <small class="d-block text-muted">Gallons</small>
+              </div>
+            </div>
+
+            <div class="p-3 bg-light rounded-3 border d-flex align-items-center justify-content-between">
+              <div class="d-flex align-items-center gap-3">
+                <div class="p-2 bg-warning text-white rounded-circle"><i class="bi bi-people fs-5"></i></div>
+                <div>
+                  <strong class="text-dark d-block">Community Participation Rate</strong>
+                  <small class="text-muted">Households engaged across cooperative projects</small>
+                </div>
+              </div>
+              <div class="text-end">
+                <span class="fs-5 fw-bold text-warning">{{ total_participants }}</span>
+                <small class="d-block text-muted">Households</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Logged in User Personal Section -->
+    {% if current_user %}
+      <div class="p-4 bg-white rounded-4 border shadow-sm">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h5 class="fw-bold mb-0 text-dark"><i class="bi bi-person-badge-fill text-success me-2"></i> Your Personal Activity ({{ current_user.name }})</h5>
+          <span class="badge bg-light text-muted border">{{ current_user.location }}</span>
+        </div>
+        <div class="row g-3 text-center">
+          <div class="col-md-4">
+            <div class="p-3 bg-light rounded-3 border">
+              <small class="text-muted d-block">Your Community Stories</small>
+              <strong class="fs-4 text-dark">{{ user_posts|length }}</strong>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="p-3 bg-light rounded-3 border">
+              <small class="text-muted d-block">Saved Energy Calculations</small>
+              <strong class="fs-4 text-primary">{{ user_calculations|length }}</strong>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="p-3 bg-light rounded-3 border">
+              <small class="text-muted d-block">Member Status</small>
+              <strong class="fs-4 text-success">Active Citizen</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

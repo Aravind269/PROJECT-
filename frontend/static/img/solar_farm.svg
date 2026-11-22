@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" fill="none">
+  <defs>
+    <linearGradient id="solBg" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#f0f9ff"/>
+      <stop offset="100%" stop-color="#ecfdf5"/>
+    </linearGradient>
+    <linearGradient id="solPanel" x1="0" y1="0" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#075985"/>
+    </linearGradient>
+    <linearGradient id="sunGold" x1="0" y1="0" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="240" rx="12" fill="url(#solBg)"/>
+  
+  <!-- Sun -->
+  <circle cx="340" cy="50" r="30" fill="url(#sunGold)"/>
+  <circle cx="340" cy="50" r="42" stroke="#fde047" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.6"/>
+
+  <!-- Rolling field -->
+  <path d="M0 160 Q120 140 240 160 T400 150 L400 240 L0 240 Z" fill="#10b981" opacity="0.85"/>
+  <path d="M0 185 Q160 170 300 190 T400 180 L400 240 L0 240 Z" fill="#059669"/>
+
+  <!-- Solar Array Rows -->
+  <!-- Row 1 -->
+  <g transform="translate(60, 100)">
+    <polygon points="0,50 90,30 110,65 15,85" fill="url(#solPanel)" stroke="#38bdf8" stroke-width="1.5"/>
+    <line x1="45" y1="40" x2="60" y2="75" stroke="#7dd3fc" stroke-width="1"/>
+    <line x1="5" y1="67" x2="95" y2="48" stroke="#7dd3fc" stroke-width="1"/>
+  </g>
+  <g transform="translate(180, 90)">
+    <polygon points="0,50 90,30 110,65 15,85" fill="url(#solPanel)" stroke="#38bdf8" stroke-width="1.5"/>
+    <line x1="45" y1="40" x2="60" y2="75" stroke="#7dd3fc" stroke-width="1"/>
+    <line x1="5" y1="67" x2="95" y2="48" stroke="#7dd3fc" stroke-width="1"/>
+  </g>
+
+  <!-- Row 2 (foreground) -->
+  <g transform="translate(100, 130)">
+    <polygon points="0,60 110,35 135,75 20,100" fill="url(#solPanel)" stroke="#38bdf8" stroke-width="1.8"/>
+    <line x1="55" y1="47" x2="75" y2="88" stroke="#7dd3fc" stroke-width="1.2"/>
+    <line x1="10" y1="80" x2="120" y2="55" stroke="#7dd3fc" stroke-width="1.2"/>
+  </g>
+
+  <!-- Inverter Unit -->
+  <rect x="20" y="165" width="28" height="40" rx="3" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+  <rect x="25" y="172" width="18" height="12" fill="#0284c7" rx="1"/>
+  <circle cx="28" cy="192" r="2" fill="#10b981"/>
+  <circle cx="35" cy="192" r="2" fill="#10b981"/>
+
+  <!-- Badge -->
+  <rect x="16" y="16" width="115" height="28" rx="14" fill="#ffffff" opacity="0.9"/>
+  <circle cx="30" cy="30" r="7" fill="#f59e0b"/>
+  <text x="44" y="34" font-family="system-ui, sans-serif" font-weight="700" font-size="11" fill="#0f172a">SOLAR 450 kW</text>
+</svg>

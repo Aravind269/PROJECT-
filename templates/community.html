@@ -1,0 +1,217 @@
+{% extends 'base.html' %}
+
+{% block title %}Community Forum & Experience Sharing - Renewable Energy Portal{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<div class="py-5 bg-white border-bottom">
+  <div class="container text-center">
+    <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-1 rounded-pill mb-2">
+      Community Hub
+    </span>
+    <h1 class="fw-bold mb-3">Community Experiences & Knowledge Exchange</h1>
+    <p class="text-muted max-w-700 mx-auto mb-0">
+      Connect with fellow homeowners, cooperative organizers, and clean energy pioneers. Share real-world installation numbers, tips, and ask questions.
+    </p>
+  </div>
+</div>
+
+<div class="py-5">
+  <div class="container">
+    <div class="row g-5">
+      <!-- Main Feed Column -->
+      <div class="col-lg-8">
+        <!-- New Post Card -->
+        <div class="p-4 bg-white rounded-4 border shadow-sm mb-4">
+          {% if current_user %}
+            <h5 class="fw-bold mb-3 text-dark"><i class="bi bi-pencil-square text-success me-2"></i> Share Your Experience or Suggestion</h5>
+            <form action="{{ url_for('create_post') }}" method="POST">
+              <div class="mb-3">
+                <input type="text" name="title" class="form-control" placeholder="Title: e.g. My 1-year rooftop solar review or tip on battery storage..." required minlength="5">
+              </div>
+              <div class="row g-2 mb-3">
+                <div class="col-md-6">
+                  <select name="category" class="form-select form-select-sm" required>
+                    <option value="Solar Experience">Solar Experience</option>
+                    <option value="Wind & DIY">Wind & DIY Projects</option>
+                    <option value="Energy Tips">Energy Efficiency Tips</option>
+                    <option value="Policy & Subsidy">Policy & Tax Incentives</option>
+                    <option value="General Discussion">General Discussion & Feedback</option>
+                  </select>
+                </div>
+                <div class="col-md-6 text-end">
+                  <span class="small text-muted">Posting as: <strong class="text-success">{{ current_user.name }}</strong></span>
+                </div>
+              </div>
+              <div class="mb-3">
+                <textarea name="content" class="form-control" rows="3" placeholder="Share your real installation costs, generation numbers, challenges faced, or questions for the community..." required minlength="15"></textarea>
+              </div>
+              <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-emerald fw-semibold">
+                  <i class="bi bi-send-fill me-1"></i> Post to Community
+                </button>
+              </div>
+            </form>
+          {% else %}
+            <div class="text-center py-3">
+              <i class="bi bi-chat-heart text-success fs-2 d-block mb-2"></i>
+              <h5 class="fw-bold mb-1">Have an energy experience or tip to share?</h5>
+              <p class="text-muted small mb-3">Join our growing clean energy network to share stories, leave comments, and upvote discussions.</p>
+              <div class="d-flex justify-content-center gap-2">
+                <a href="{{ url_for('login') }}?next={{ url_for('community') }}" class="btn btn-sm btn-outline-secondary px-3">Log In</a>
+                <a href="{{ url_for('register') }}" class="btn btn-sm btn-emerald px-3">Create Free Account</a>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+
+        <!-- Category Filters -->
+        <div class="d-flex flex-wrap gap-2 mb-4">
+          {% for cat in categories %}
+            <a href="{{ url_for('community', category=cat) }}" class="btn btn-sm {% if selected_category == cat %}btn-emerald{% else %}btn-light border{% endif %} rounded-pill px-3">
+              {{ cat }}
+            </a>
+          {% endfor %}
+        </div>
+
+        <!-- Posts List -->
+        <div class="d-flex flex-column gap-4">
+          {% for post in posts %}
+            <div class="post-card">
+              <!-- Author Header -->
+              <div class="d-flex align-items-center justify-content-between mb-3">
+                <div class="d-flex align-items-center gap-2">
+                  <div class="rounded-circle bg-success-subtle text-success d-flex align-items-center justify-content-center fw-bold" style="width: 42px; height: 42px;">
+                    {{ post.author.name[0] }}
+                  </div>
+                  <div>
+                    <h6 class="fw-bold mb-0 text-dark">{{ post.author.name }}</h6>
+                    <small class="text-muted">
+                      <i class="bi bi-geo-alt me-1"></i> {{ post.author.location or 'Community Member' }} &bull; {{ post.created_at.strftime('%b %d, %Y') }}
+                    </small>
+                  </div>
+                </div>
+                <span class="badge bg-light text-secondary border">
+                  {{ post.category }}
+                </span>
+              </div>
+
+              <!-- Post Body -->
+              <h5 class="fw-bold mb-2 text-dark">{{ post.title }}</h5>
+              <p class="text-secondary mb-3 lh-base" style="white-space: pre-line;">{{ post.content }}</p>
+
+              <!-- Post Actions -->
+              <div class="d-flex align-items-center gap-3 pt-3 border-top">
+                <button class="upvote-btn btn-upvote" data-post-id="{{ post.id }}">
+                  <i class="bi bi-hand-thumbs-up-fill me-1"></i>
+                  <span id="upvote-count-{{ post.id }}">{{ post.upvotes }}</span> Upvotes
+                </button>
+                <button class="btn btn-sm btn-light border text-muted" type="button" data-bs-toggle="collapse" data-bs-target="#comments-{{ post.id }}" aria-expanded="false">
+                  <i class="bi bi-chat-left-text me-1"></i> {{ post.comments|length }} Comments
+                </button>
+              </div>
+
+              <!-- Expandable Comments -->
+              <div class="collapse mt-3" id="comments-{{ post.id }}">
+                <div class="pt-2">
+                  {% for comment in post.comments %}
+                    <div class="comment-bubble mb-2">
+                      <div class="d-flex justify-content-between align-items-center mb-1">
+                        <strong class="small text-dark">{{ comment.author.name }}</strong>
+                        <small class="text-muted" style="font-size: 0.75rem;">{{ comment.created_at.strftime('%b %d, %H:%M') }}</small>
+                      </div>
+                      <p class="small text-secondary mb-0">{{ comment.content }}</p>
+                    </div>
+                  {% else %}
+                    <p class="small text-muted fst-italic mb-2">No comments yet. Be the first to reply!</p>
+                  {% endfor %}
+
+                  <!-- Add Comment Form -->
+                  {% if current_user %}
+                    <form action="{{ url_for('add_comment', post_id=post.id) }}" method="POST" class="mt-3">
+                      <div class="input-group input-group-sm">
+                        <input type="text" name="content" class="form-control" placeholder="Write a constructive reply..." required>
+                        <button class="btn btn-emerald" type="submit">Reply</button>
+                      </div>
+                    </form>
+                  {% else %}
+                    <div class="p-2 bg-light rounded text-center small mt-2">
+                      <a href="{{ url_for('login') }}?next={{ url_for('community') }}" class="text-success fw-semibold">Log in</a> to join this discussion.
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {% else %}
+            <div class="p-5 bg-white rounded-4 border text-center">
+              <i class="bi bi-chat-square-dots text-muted fs-1 mb-3 d-block"></i>
+              <h5 class="fw-bold">No community posts in this category yet.</h5>
+              <p class="text-muted small">Be the first community member to start the conversation!</p>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Community Sidebar -->
+      <div class="col-lg-4">
+        <!-- Guidelines Card -->
+        <div class="p-4 bg-white rounded-4 shadow-sm border mb-4">
+          <h5 class="fw-bold mb-3"><i class="bi bi-shield-check text-success me-2"></i> Community Guidelines</h5>
+          <ul class="list-unstyled small text-secondary mb-0">
+            <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i> <strong>Share Verified Experiences:</strong> Share real solar, wind, and battery figures to help neighbors learn.</li>
+            <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i> <strong>Constructive Questions:</strong> Ask about net metering, local installers, or equipment troubleshooting.</li>
+            <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i> <strong>Community Co-ops:</strong> Propose group-buying initiatives to negotiate volume equipment discounts.</li>
+            <li><i class="bi bi-check-circle text-success me-2"></i> <strong>Respectful Dialogue:</strong> Maintain encouraging, science-backed discussions.</li>
+          </ul>
+        </div>
+
+        <!-- Suggestion / Feedback Wall Callout -->
+        <div class="p-4 rounded-4 text-white shadow-sm mb-4" style="background: linear-gradient(135deg, #0284c7 0%, #064e3b 100%);">
+          <h5 class="fw-bold mb-2">Portal Feedback & Policy Ideas</h5>
+          <p class="small text-white text-opacity-90 mb-3">
+            Have a suggestion to improve local clean energy access or portal functionality? Send a direct note to our admin council.
+          </p>
+          <a href="{{ url_for('contact') }}?category=Portal+Feedback" class="btn btn-light btn-sm w-100 fw-bold text-success">
+            <i class="bi bi-envelope-paper me-1"></i> Submit Suggestion
+          </a>
+        </div>
+
+        <!-- Active Contributors -->
+        <div class="p-4 bg-white rounded-4 shadow-sm border">
+          <h5 class="fw-bold mb-3"><i class="bi bi-trophy text-warning me-2"></i> Top Community Advocates</h5>
+          <div class="d-flex align-items-center gap-3 mb-3 pb-2 border-bottom">
+            <div class="rounded-circle bg-warning-subtle text-warning d-flex align-items-center justify-content-center fw-bold" style="width: 38px; height: 38px;">
+              E
+            </div>
+            <div>
+              <strong class="d-block small text-dark">Elena Vance (Admin)</strong>
+              <small class="text-muted">Solar Co-op Coordinator</small>
+            </div>
+            <span class="badge bg-light text-success border ms-auto">24 Posts</span>
+          </div>
+          <div class="d-flex align-items-center gap-3 mb-3 pb-2 border-bottom">
+            <div class="rounded-circle bg-info-subtle text-info d-flex align-items-center justify-content-center fw-bold" style="width: 38px; height: 38px;">
+              M
+            </div>
+            <div>
+              <strong class="d-block small text-dark">Marcus Chen</strong>
+              <small class="text-muted">8.4 kW Rooftop Solar</small>
+            </div>
+            <span class="badge bg-light text-success border ms-auto">18 Posts</span>
+          </div>
+          <div class="d-flex align-items-center gap-3">
+            <div class="rounded-circle bg-success-subtle text-success d-flex align-items-center justify-content-center fw-bold" style="width: 38px; height: 38px;">
+              S
+            </div>
+            <div>
+              <strong class="d-block small text-dark">Sophia Rodriguez</strong>
+              <small class="text-muted">Biogas Advocate</small>
+            </div>
+            <span class="badge bg-light text-success border ms-auto">12 Posts</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

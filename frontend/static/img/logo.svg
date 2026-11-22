@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 70" fill="none">
+  <defs>
+    <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+  </defs>
+  <!-- Leaf and Sun Icon -->
+  <g transform="translate(10, 10)">
+    <circle cx="25" cy="25" r="22" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
+    <!-- Sun rays -->
+    <path d="M25 8 V13 M25 37 V42 M8 25 H13 M37 25 H42 M13 13 L17 17 M33 33 L37 37 M13 37 L17 33 M33 13 L37 17" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- Center Leaf -->
+    <path d="M19 32 C17 22 26 15 32 18 C33 26 26 33 19 32 Z" fill="url(#logoGrad)"/>
+    <path d="M21 29 C24 25 27 23 29 20" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+  </g>
+  <!-- Typography -->
+  <text x="68" y="32" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-weight="800" font-size="20" fill="#0f172a" letter-spacing="-0.5">
+    Eco<tspan fill="#10b981">Community</tspan>
+  </text>
+  <text x="68" y="49" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-weight="600" font-size="10.5" fill="#0284c7" letter-spacing="1.5">
+    RENEWABLE ENERGY PORTAL
+  </text>
+</svg>

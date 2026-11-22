@@ -1,0 +1,524 @@
+/* ==========================================================================
+   Community Renewable Energy Awareness and Management Portal
+   Modern Responsive Theme: Emerald Green, Ocean Blue & Crisp White
+   ========================================================================== */
+
+:root {
+  --primary-green: #10b981;
+  --primary-green-dark: #047857;
+  --primary-green-darker: #064e3b;
+  --primary-green-light: #ecfdf5;
+  --primary-green-border: #a7f3d0;
+
+  --accent-blue: #0284c7;
+  --accent-blue-dark: #0369a1;
+  --accent-blue-light: #f0f9ff;
+  --accent-blue-border: #bae6fd;
+
+  --solar-amber: #f59e0b;
+  --solar-amber-light: #fef3c7;
+
+  --dark-slate: #0f172a;
+  --dark-card: #1e293b;
+  --muted-text: #64748b;
+  --heading-text: #1e293b;
+  --light-bg: #f8fafc;
+  --border-color: #e2e8f0;
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+  --card-shadow-hover: 0 20px 25px -5px rgba(16, 185, 129, 0.12), 0 8px 10px -6px rgba(16, 185, 129, 0.08);
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--light-bg);
+  color: var(--heading-text);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+/* ==========================================================================
+   Navigation Bar
+   ========================================================================== */
+.navbar-custom {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
+  padding: 0.75rem 0;
+  transition: all 0.3s ease;
+}
+
+.navbar-brand-logo {
+  height: 44px;
+  width: auto;
+  transition: transform 0.2s ease;
+}
+
+.navbar-brand:hover .navbar-brand-logo {
+  transform: scale(1.03);
+}
+
+.navbar-nav .nav-link {
+  font-weight: 500;
+  color: #334155;
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+  color: var(--primary-green-dark);
+  background-color: var(--primary-green-light);
+}
+
+.nav-pill-badge {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+}
+
+/* ==========================================================================
+   Hero Section
+   ========================================================================== */
+.hero-section {
+  background: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 50%, #ffffff 100%);
+  padding: 5rem 0 4rem 0;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #ffffff;
+  border: 1px solid var(--primary-green-border);
+  color: var(--primary-green-dark);
+  padding: 0.4rem 1rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: 0 2px 5px rgba(16, 185, 129, 0.1);
+  margin-bottom: 1.25rem;
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  color: var(--dark-slate);
+}
+
+.hero-title span.text-highlight {
+  background: linear-gradient(120deg, var(--primary-green-dark), var(--accent-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+  font-size: 1.15rem;
+  color: #475569;
+  max-width: 600px;
+}
+
+.hero-img {
+  max-width: 100%;
+  height: auto;
+  filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.08));
+  transition: transform 0.4s ease;
+}
+
+.hero-img:hover {
+  transform: translateY(-4px);
+}
+
+/* ==========================================================================
+   Cards & Content Blocks
+   ========================================================================== */
+.feature-card {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 1.75rem;
+  transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--card-shadow-hover);
+  border-color: var(--primary-green-border);
+}
+
+.feature-icon-wrapper {
+  width: 60px;
+  height: 60px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  margin-bottom: 1.25rem;
+  transition: transform 0.2s ease;
+}
+
+.feature-card:hover .feature-icon-wrapper {
+  transform: scale(1.1);
+}
+
+.icon-solar {
+  background-color: #fef3c7;
+  color: #d97706;
+}
+
+.icon-wind {
+  background-color: #e0f2fe;
+  color: #0284c7;
+}
+
+.icon-hydro {
+  background-color: #e0e7ff;
+  color: #4338ca;
+}
+
+.icon-biomass {
+  background-color: #dcfce7;
+  color: #15803d;
+}
+
+.stat-card {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  padding: 1.5rem;
+  box-shadow: var(--card-shadow);
+  transition: all 0.2s ease;
+}
+
+.stat-card:hover {
+  border-color: var(--primary-green);
+  box-shadow: var(--card-shadow-hover);
+}
+
+.stat-value {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: var(--dark-slate);
+  line-height: 1.1;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted-text);
+  margin-top: 0.35rem;
+}
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+.btn-emerald {
+  background-color: var(--primary-green);
+  border-color: var(--primary-green);
+  color: #ffffff;
+  font-weight: 600;
+  padding: 0.65rem 1.4rem;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.btn-emerald:hover,
+.btn-emerald:focus {
+  background-color: var(--primary-green-dark);
+  border-color: var(--primary-green-dark);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
+}
+
+.btn-ocean {
+  background-color: var(--accent-blue);
+  border-color: var(--accent-blue);
+  color: #ffffff;
+  font-weight: 600;
+  padding: 0.65rem 1.4rem;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.btn-ocean:hover {
+  background-color: var(--accent-blue-dark);
+  border-color: var(--accent-blue-dark);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35);
+}
+
+.btn-outline-emerald {
+  border: 2px solid var(--primary-green);
+  color: var(--primary-green-dark);
+  font-weight: 600;
+  padding: 0.6rem 1.3rem;
+  border-radius: 10px;
+  background-color: transparent;
+  transition: all 0.2s ease;
+}
+
+.btn-outline-emerald:hover {
+  background-color: var(--primary-green);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   Project Cards & Badges
+   ========================================================================== */
+.project-card {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--card-shadow-hover);
+  border-color: var(--primary-green-border);
+}
+
+.project-card-img-wrapper {
+  position: relative;
+  height: 180px;
+  background-color: #f1f5f9;
+  overflow: hidden;
+}
+
+.project-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.project-card:hover .project-card-img {
+  transform: scale(1.05);
+}
+
+.badge-solar {
+  background-color: #fef3c7;
+  color: #92400e;
+  font-weight: 600;
+}
+
+.badge-wind {
+  background-color: #e0f2fe;
+  color: #075985;
+  font-weight: 600;
+}
+
+.badge-hydro {
+  background-color: #e0e7ff;
+  color: #3730a3;
+  font-weight: 600;
+}
+
+.badge-biomass {
+  background-color: #dcfce7;
+  color: #166534;
+  font-weight: 600;
+}
+
+.badge-status-active {
+  background-color: #dcfce7;
+  color: #166534;
+  border: 1px solid #86efac;
+}
+
+.badge-status-planning {
+  background-color: #fef9c3;
+  color: #854d0e;
+  border: 1px solid #fde047;
+}
+
+/* ==========================================================================
+   Calculator Section & Interactive Result Box
+   ========================================================================== */
+.calc-card {
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--card-shadow);
+  padding: 2rem;
+}
+
+.calc-result-box {
+  background: linear-gradient(135deg, #064e3b 0%, #065f46 60%, #0f172a 100%);
+  color: #ffffff;
+  border-radius: 18px;
+  padding: 2rem;
+  box-shadow: 0 15px 30px rgba(6, 78, 59, 0.25);
+}
+
+.calc-metric-value {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #34d399;
+}
+
+.calc-metric-sub {
+  font-size: 0.85rem;
+  color: #a7f3d0;
+}
+
+.eco-equivalency-badge {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 0.85rem;
+  text-align: center;
+}
+
+/* ==========================================================================
+   Awareness & Pollution Comparison Section
+   ========================================================================== */
+.source-tab-btn {
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  color: #475569;
+  background-color: #f1f5f9;
+  transition: all 0.2s ease;
+}
+
+.source-tab-btn.active {
+  background-color: var(--primary-green-dark);
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(4, 120, 87, 0.25);
+}
+
+.pros-cons-card {
+  border-radius: 14px;
+  padding: 1.25rem;
+  height: 100%;
+}
+
+.pros-card {
+  background-color: #f0fdf4;
+  border: 1px solid #bbf7d0;
+}
+
+.cons-card {
+  background-color: #fff1f2;
+  border: 1px solid #fecdd3;
+}
+
+/* ==========================================================================
+   Community Forum & Posts
+   ========================================================================== */
+.post-card {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+  box-shadow: var(--card-shadow);
+  transition: all 0.2s ease;
+}
+
+.post-card:hover {
+  border-color: var(--primary-green-border);
+}
+
+.upvote-btn {
+  background-color: #f8fafc;
+  border: 1px solid var(--border-color);
+  color: #475569;
+  border-radius: 10px;
+  padding: 0.4rem 0.8rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.upvote-btn:hover {
+  background-color: var(--primary-green-light);
+  color: var(--primary-green-dark);
+  border-color: var(--primary-green-border);
+}
+
+.comment-bubble {
+  background-color: #f8fafc;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  margin-top: 0.5rem;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.footer-custom {
+  background-color: #0f172a;
+  color: #94a3b8;
+  padding: 4rem 0 2rem 0;
+  border-top: 1px solid #1e293b;
+}
+
+.footer-custom a {
+  color: #cbd5e1;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-custom a:hover {
+  color: var(--primary-green);
+}
+
+.footer-bottom {
+  border-top: 1px solid #1e293b;
+  padding-top: 1.5rem;
+  margin-top: 3rem;
+  font-size: 0.85rem;
+}
+
+/* ==========================================================================
+   Responsive Utilities
+   ========================================================================== */
+@media (max-width: 991.98px) {
+  .hero-title {
+    font-size: 2.3rem;
+  }
+  .hero-section {
+    padding: 3rem 0;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .hero-title {
+    font-size: 1.85rem;
+  }
+  .stat-value {
+    font-size: 1.75rem;
+  }
+}

@@ -1,0 +1,376 @@
+{% extends 'base.html' %}
+
+{% block title %}Renewable Energy Awareness - Sources, Pollution Reduction & Tips{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<div class="py-5 bg-white border-bottom">
+  <div class="container text-center">
+    <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-1 rounded-pill mb-2">
+      Educational Center
+    </span>
+    <h1 class="fw-bold mb-3">Renewable Energy Awareness & Education</h1>
+    <p class="text-muted max-w-700 mx-auto mb-0">
+      Understand how clean, inexhaustible natural cycles power our civilization, why replacing fossil fuels is vital for public health, and practical steps you can take today to save electricity.
+    </p>
+  </div>
+</div>
+
+<!-- Section 1: Detailed Sources with Pros & Cons -->
+<section class="py-5" id="sources-breakdown">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold">Understanding Renewable Energy Sources</h2>
+      <p class="text-muted">Explore how solar, wind, hydro, and biomass function, alongside their core advantages and trade-offs.</p>
+    </div>
+
+    <!-- 1. SOLAR ENERGY -->
+    <div class="card border-0 shadow-sm rounded-4 mb-5 overflow-hidden" id="solar">
+      <div class="row g-0">
+        <div class="col-lg-5 p-4 d-flex flex-column justify-content-center" style="background-color: #fffbeb;">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <div class="feature-icon-wrapper icon-solar mb-0">
+              <i class="bi bi-sun-fill"></i>
+            </div>
+            <div>
+              <h3 class="fw-bold mb-0 text-dark">Solar Energy</h3>
+              <span class="badge bg-warning text-dark">Photovoltaic & Solar Thermal</span>
+            </div>
+          </div>
+          <p class="text-secondary small mb-3">
+            Solar technology captures solar irradiance using semiconductor materials (predominantly silicon). When photons strike the PV cells, electrons are mobilized to create Direct Current (DC), which a digital inverter converts into Alternating Current (AC) for household appliances or the utility grid.
+          </p>
+          <div class="p-3 bg-white rounded-3 border small">
+            <strong>Key Metrics:</strong>
+            <ul class="mb-0 ps-3 mt-1 text-muted">
+              <li>Expected Module Life: <strong>25–30 Years</strong></li>
+              <li>Modern Efficiency: <strong>21%–23.5%</strong></li>
+              <li>Lifecycle Carbon: <strong>~20-40 g CO₂/kWh</strong> (vs 900+ for coal)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-7 p-4 bg-white">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="pros-cons-card pros-card">
+                <h6 class="fw-bold text-success mb-2"><i class="bi bi-check-circle-fill me-1"></i> Advantages</h6>
+                <ul class="list-unstyled small text-secondary mb-0">
+                  <li class="mb-2"><i class="bi bi-check-lg text-success me-1"></i> <strong>Zero Operating Emissions:</strong> Generates zero air pollutants or greenhouse gases during operation.</li>
+                  <li class="mb-2"><i class="bi bi-check-lg text-success me-1"></i> <strong>Abundant & Inexhaustible:</strong> The earth receives more solar energy in 90 minutes than all human activity consumes in a year.</li>
+                  <li class="mb-2"><i class="bi bi-check-lg text-success me-1"></i> <strong>Decentralized Power:</strong> Can be installed on rooftops, carports, and brownfields without new land usage.</li>
+                  <li><i class="bi bi-check-lg text-success me-1"></i> <strong>Low Maintenance:</strong> No moving parts, requiring only occasional dusting and inverter checkups.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="pros-cons-card cons-card">
+                <h6 class="fw-bold text-danger mb-2"><i class="bi bi-exclamation-triangle-fill me-1"></i> Disadvantages & Solutions</h6>
+                <ul class="list-unstyled small text-secondary mb-0">
+                  <li class="mb-2"><i class="bi bi-x-lg text-danger me-1"></i> <strong>Intermittency:</strong> Panels only produce during daylight hours. <em>Solution: Local battery storage (LFP) and smart grid net metering.</em></li>
+                  <li class="mb-2"><i class="bi bi-x-lg text-danger me-1"></i> <strong>Upfront Capital:</strong> Initial equipment and installation cost. <em>Solution: 30% tax credits, community solar subscriptions, and 5-7 year payback.</em></li>
+                  <li><i class="bi bi-x-lg text-danger me-1"></i> <strong>Roof Suitability:</strong> Requires unobstructed south/west roof area. <em>Solution: Community solar farms for apartment dwellers.</em></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. WIND ENERGY -->
+    <div class="card border-0 shadow-sm rounded-4 mb-5 overflow-hidden" id="wind">
+      <div class="row g-0">
+        <div class="col-lg-5 p-4 d-flex flex-column justify-content-center" style="background-color: #f0f9ff;">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <div class="feature-icon-wrapper icon-wind mb-0">
+              <i class="bi bi-wind"></i>
+            </div>
+            <div>
+              <h3 class="fw-bold mb-0 text-dark">Wind Energy</h3>
+              <span class="badge bg-info text-dark">Onshore & Offshore Turbines</span>
+            </div>
+          </div>
+          <p class="text-secondary small mb-3">
+            Wind turbines harness kinetic airflow using aerodynamic blades shaped like airplane wings. The passing wind creates aerodynamic lift, causing the blades to spin a central rotor linked through a gearbox to an electric induction generator.
+          </p>
+          <div class="p-3 bg-white rounded-3 border small">
+            <strong>Key Metrics:</strong>
+            <ul class="mb-0 ps-3 mt-1 text-muted">
+              <li>Capacity Factors: <strong>35%–50%</strong></li>
+              <li>Modern Hub Height: <strong>80–120 Meters</strong></li>
+              <li>Lifecycle Carbon: <strong>~11 g CO₂/kWh</strong></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-7 p-4 bg-white">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="pros-cons-card pros-card">
+                <h6 class="fw-bold text-success mb-2"><i class="bi bi-check-circle-fill me-1"></i> Advantages</h6>
+                <ul class="list-unstyled small text-secondary mb-0">
+                  <li class="mb-2"><i class="bi bi-check-lg text-success me-1"></i> <strong>Lowest Levelized Cost:</strong> One of the cheapest sources of new electric capacity worldwide.</li>
+                  <li class="mb-2"><i class="bi bi-check-lg text-success me-1"></i> <strong>Dual Land Use:</strong> Turbines occupy minimal ground footprint, allowing farming and grazing to proceed undisturbed.</li>
+                  <li class="mb-2"><i class="bi bi-check-lg text-success me-1"></i> <strong>Day and Night Generation:</strong> Wind often blows strongest during evenings and winter months, complimenting solar.</li>
+                  <li><i class="bi bi-check-lg text-success me-1"></i> <strong>Zero Water Consumption:</strong> Unlike thermal plants, wind turbines consume zero cooling water.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="pros-cons-card cons-card">
+                <h6 class="fw-bold text-danger mb-2"><i class="bi bi-exclamation-triangle-fill me-1"></i> Disadvantages & Solutions</h6>
+                <ul class="list-unstyled small text-secondary mb-0">
+                  <li class="mb-2"><i class="bi bi-x-lg text-danger me-1"></i> <strong>Geographic Specificity:</strong> Requires sustained average wind speeds (>5 m/s). <em>Solution: High-resolution wind LiDAR siting surveys.</em></li>
+                  <li class="mb-2"><i class="bi bi-x-lg text-danger me-1"></i> <strong>Visual & Sound Presence:</strong> Rotor swish audible up close. <em>Solution: Minimum setback buffers and ultra-quiet blade trailing edges.</em></li>
+                  <li><i class="bi bi-x-lg text-danger me-1"></i> <strong>Wildlife Protection:</strong> Potential avian collision risk. <em>Solution: Radar-automated blade slowdown and bird migration corridors.</em></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. HYDRO ENERGY -->
+    <div class="card border-0 shadow-sm rounded-4 mb-5 overflow-hidden" id="hydro">
+      <div class="row g-0">
+        <div class="col-lg-5 p-4 d-flex flex-column justify-content-center" style="background-color: #eef2ff;">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <div class="feature-icon-wrapper icon-hydro mb-0">
+              <i class="bi bi-water"></i>
+            </div>
+            <div>
+              <h3 class="fw-bold mb-0 text-dark">Hydro Energy</h3>
+              <span class="badge bg-primary">Run-of-River & Micro-Hydro</span>
+            </div>
+          </div>
+          <p class="text-secondary small mb-3">
+            Hydroelectric power transforms the potential and kinetic energy of flowing or falling water into mechanical rotational force. Run-of-river installations divert a portion of a natural river through a penstock pipe to drive an impulse turbine, without building massive ecological dams.
+          </p>
+          <div class="p-3 bg-white rounded-3 border small">
+            <strong>Key Metrics:</strong>
+            <ul class="mb-0 ps-3 mt-1 text-muted">
+              <li>Capacity Factors: <strong>60%–90%</strong></li>
+              <li>Operational Lifespan: <strong>50–100 Years</strong></li>
+              <li>Dispatchability: <strong>Continuous 24/7</strong></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-7 p-4 bg-white">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="pros-cons-card pros-card">
+                <h6 class="fw-bold text-success mb-2"><i class="bi bi-check-circle-fill me-1"></i> Advantages</h6>
+                <ul class="list-unstyled small text-secondary mb-0">
+                  <li class="mb-2"><i class="bi bi-check-lg text-success me-1"></i> <strong>Baseload Reliability:</strong> Runs around the clock, providing dependable baseline electricity during calm nights.</li>
+                  <li class="mb-2"><i class="bi bi-check-lg text-success me-1"></i> <strong>Extremely High Energy Density:</strong> Water is ~800 times denser than air, allowing compact turbines to yield massive power.</li>
+                  <li class="mb-2"><i class="bi bi-check-lg text-success me-1"></i> <strong>Multi-Decade Durability:</strong> Solid metal and concrete hydro infrastructure regularly runs for 50+ years.</li>
+                  <li><i class="bi bi-check-lg text-success me-1"></i> <strong>Zero Fuel Dependency:</strong> Free, recurring hydrological water cycle.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="pros-cons-card cons-card">
+                <h6 class="fw-bold text-danger mb-2"><i class="bi bi-exclamation-triangle-fill me-1"></i> Disadvantages & Solutions</h6>
+                <ul class="list-unstyled small text-secondary mb-0">
+                  <li class="mb-2"><i class="bi bi-x-lg text-danger me-1"></i> <strong>River Ecology Impact:</strong> Conventional dams disrupt fish migration. <em>Solution: Run-of-river micro installations with fish ladders and intake screens.</em></li>
+                  <li class="mb-2"><i class="bi bi-x-lg text-danger me-1"></i> <strong>Seasonal Drought Vulnerability:</strong> Dependent on seasonal rain and snowpack. <em>Solution: Hybrid hydro-solar microgrid combinations.</em></li>
+                  <li><i class="bi bi-x-lg text-danger me-1"></i> <strong>Specific Topography:</strong> Requires water head (vertical drop) and steady flow.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. BIOMASS ENERGY -->
+    <div class="card border-0 shadow-sm rounded-4 mb-5 overflow-hidden" id="biomass">
+      <div class="row g-0">
+        <div class="col-lg-5 p-4 d-flex flex-column justify-content-center" style="background-color: #f0fdf4;">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <div class="feature-icon-wrapper icon-biomass mb-0">
+              <i class="bi bi-tree-fill"></i>
+            </div>
+            <div>
+              <h3 class="fw-bold mb-0 text-dark">Biomass Energy</h3>
+              <span class="badge bg-success">Anaerobic Biogas & Organic Waste</span>
+            </div>
+          </div>
+          <p class="text-secondary small mb-3">
+            Biomass energy captures chemical energy stored in organic plant matter and animal waste. In modern anaerobic digesters, bacteria break down organic residues in an oxygen-free environment, releasing methane-rich biogas to power clean combined heat and power (CHP) generators.
+          </p>
+          <div class="p-3 bg-white rounded-3 border small">
+            <strong>Key Metrics:</strong>
+            <ul class="mb-0 ps-3 mt-1 text-muted">
+              <li>Waste Diversion: <strong>Hundreds of tons/yr</strong></li>
+              <li>Co-product: <strong>Organic Biofertilizer</strong></li>
+              <li>Dispatchability: <strong>On-Demand</strong></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-7 p-4 bg-white">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="pros-cons-card pros-card">
+                <h6 class="fw-bold text-success mb-2"><i class="bi bi-check-circle-fill me-1"></i> Advantages</h6>
+                <ul class="list-unstyled small text-secondary mb-0">
+                  <li class="mb-2"><i class="bi bi-check-lg text-success me-1"></i> <strong>Waste to Wealth:</strong> Diverts organic manure and food scraps from landfills, eliminating fugitive methane emissions.</li>
+                  <li class="mb-2"><i class="bi bi-check-lg text-success me-1"></i> <strong>Dispatchable On Demand:</strong> Biogas can be stored in tanks and burned precisely when electricity demand peaks.</li>
+                  <li class="mb-2"><i class="bi bi-check-lg text-success me-1"></i> <strong>Valuable By-Products:</strong> Liquid digestate serves as an organic, chemical-free nitrogen-rich soil fertilizer.</li>
+                  <li><i class="bi bi-check-lg text-success me-1"></i> <strong>Supports Rural Economies:</strong> Creates local green jobs in agricultural processing.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="pros-cons-card cons-card">
+                <h6 class="fw-bold text-danger mb-2"><i class="bi bi-exclamation-triangle-fill me-1"></i> Disadvantages & Solutions</h6>
+                <ul class="list-unstyled small text-secondary mb-0">
+                  <li class="mb-2"><i class="bi bi-x-lg text-danger me-1"></i> <strong>Feedstock Supply Chain:</strong> Requires steady supply of organic biomass. <em>Solution: Regional agricultural co-ops and municipal food waste collection.</em></li>
+                  <li class="mb-2"><i class="bi bi-x-lg text-danger me-1"></i> <strong>Combustion Controls:</strong> Requires emission scrubbers. <em>Solution: Catalytic scrubbers and high-efficiency closed CHP units.</em></li>
+                  <li><i class="bi bi-x-lg text-danger me-1"></i> <strong>Maintenance:</strong> Digesters require biological pH and temperature regulation.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 2: How Renewable Energy Reduces Pollution -->
+<section class="py-5 bg-white border-top border-bottom" id="pollution-reduction">
+  <div class="container">
+    <div class="text-center max-w-700 mx-auto mb-5">
+      <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-3 py-1 rounded-pill mb-2">
+        Environmental Dividend
+      </span>
+      <h2 class="fw-bold mb-3">How Clean Energy Drastically Reduces Pollution</h2>
+      <p class="text-muted">
+        Burning coal, oil, and methane releases hundreds of millions of tons of lethal airborne particulates and heat-trapping greenhouse gases every year. Here is how renewable transition heals our ecosystems.
+      </p>
+    </div>
+
+    <!-- Comparative Table / Visual Cards -->
+    <div class="row g-4 mb-5">
+      <div class="col-lg-3 col-md-6">
+        <div class="p-4 bg-light rounded-4 border text-center h-100">
+          <div class="text-danger mb-2"><i class="bi bi-lungs-fill fs-1"></i></div>
+          <h5 class="fw-bold">Fine Particulates (PM2.5)</h5>
+          <p class="small text-muted mb-3">Microscopic soot that penetrates lung tissue and enters bloodstreams.</p>
+          <div class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 w-100 fw-bold">
+            100% ELIMINATED BY SOLAR & WIND
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="p-4 bg-light rounded-4 border text-center h-100">
+          <div class="text-warning mb-2"><i class="bi bi-cloud-haze2-fill fs-1"></i></div>
+          <h5 class="fw-bold">Sulfur Dioxide & Smog (SO₂)</h5>
+          <p class="small text-muted mb-3">Causes acid rain, damages forests, and triggers chronic pediatric asthma.</p>
+          <div class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 w-100 fw-bold">
+            ZERO DIRECT SO₂ EMISSIONS
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="p-4 bg-light rounded-4 border text-center h-100">
+          <div class="text-primary mb-2"><i class="bi bi-droplet-half fs-1"></i></div>
+          <h5 class="fw-bold">Freshwater Conservation</h5>
+          <p class="small text-muted mb-3">Coal & nuclear steam cycles evaporate billions of gallons of freshwater.</p>
+          <div class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 w-100 fw-bold">
+            99% WATER SAVINGS
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="p-4 bg-light rounded-4 border text-center h-100">
+          <div class="text-info mb-2"><i class="bi bi-globe-americas fs-1"></i></div>
+          <h5 class="fw-bold">Carbon Dioxide (CO₂)</h5>
+          <p class="small text-muted mb-3">Primary driver of global thermal expansion and extreme weather events.</p>
+          <div class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 w-100 fw-bold">
+            95%+ LIFECYCLE REDUCTION
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 3: Practical Energy-Saving Tips (Filterable) -->
+<section class="py-5" id="tips">
+  <div class="container">
+    <div class="text-center max-w-700 mx-auto mb-4">
+      <span class="badge bg-warning-subtle text-warning border border-warning-subtle px-3 py-1 rounded-pill mb-2">
+        Household Action
+      </span>
+      <h2 class="fw-bold mb-2">Practical Energy-Saving Tips</h2>
+      <p class="text-muted">The cleanest energy is the energy you never need to consume. Filter actionable tips below to cut waste immediately.</p>
+    </div>
+
+    <!-- Category Filter Buttons -->
+    <div class="d-flex flex-wrap justify-content-center gap-2 mb-4">
+      <button class="btn btn-emerald active tip-filter-btn" data-filter="all">All Tips</button>
+      <button class="btn btn-light tip-filter-btn" data-filter="Home">Home & Insulation</button>
+      <button class="btn btn-light tip-filter-btn" data-filter="Heating & Cooling">Heating & Cooling</button>
+      <button class="btn btn-light tip-filter-btn" data-filter="Lighting">Lighting</button>
+      <button class="btn btn-light tip-filter-btn" data-filter="Appliances">Appliances</button>
+      <button class="btn btn-light tip-filter-btn" data-filter="Solar Tips">Solar Optimization</button>
+    </div>
+
+    <div class="row g-4" id="tips-container">
+      {% for tip in tips %}
+        <div class="col-lg-4 col-md-6 tip-card-item" data-category="{{ tip.category }}">
+          <div class="p-4 bg-white rounded-4 border shadow-sm h-100 d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+              <span class="badge bg-light text-dark border">{{ tip.category }}</span>
+              <span class="badge bg-success-subtle text-success border border-success-subtle">
+                Save ~{{ tip.potential_savings_kwh }} kWh/mo
+              </span>
+            </div>
+            <h5 class="fw-bold mb-2 d-flex align-items-center">
+              <i class="bi {{ tip.icon }} text-success me-2"></i> {{ tip.title }}
+            </h5>
+            <p class="text-muted small flex-grow-1">{{ tip.description }}</p>
+            <div class="pt-2 border-top d-flex justify-content-between align-items-center small text-secondary">
+              <span>Difficulty: <strong>{{ tip.difficulty }}</strong></span>
+              <span class="text-success"><i class="bi bi-lightning-charge-fill"></i> High Impact</span>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Section 4: Educational Articles -->
+<section class="py-5 bg-white border-top">
+  <div class="container">
+    <div class="text-center max-w-700 mx-auto mb-5">
+      <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-1 rounded-pill mb-2">
+        In-Depth Knowledge
+      </span>
+      <h2 class="fw-bold mb-2">Educational Articles & Awareness Guides</h2>
+      <p class="text-muted">Deep dive into detailed guides written by renewable engineers and community leaders.</p>
+    </div>
+
+    <div class="row g-4">
+      {% for article in articles %}
+        <div class="col-lg-4 col-md-6">
+          <div class="card border-0 shadow-sm rounded-4 h-100 p-4 d-flex flex-column">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <span class="badge badge-{{ article.category.lower() }} px-3 py-1">{{ article.category }}</span>
+              <span class="text-muted small"><i class="bi bi-clock me-1"></i> {{ article.read_time }}</span>
+            </div>
+            <h5 class="fw-bold mb-2">{{ article.title }}</h5>
+            <p class="text-muted small flex-grow-1">{{ article.summary }}</p>
+            <a href="{{ url_for('article_detail', slug=article.slug) }}" class="btn btn-sm btn-outline-emerald fw-semibold mt-3">
+              Read Full Guide <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

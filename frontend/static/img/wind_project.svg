@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" fill="none">
+  <defs>
+    <linearGradient id="windBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#e0f2fe"/>
+      <stop offset="100%" stop-color="#f0fdf4"/>
+    </linearGradient>
+    <linearGradient id="windHill" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34d399"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="240" rx="12" fill="url(#windBg)"/>
+
+  <!-- Wind streaks -->
+  <path d="M20 50 C80 40 140 60 200 45" stroke="#bae6fd" stroke-width="2" stroke-linecap="round"/>
+  <path d="M70 75 C140 65 210 85 280 70" stroke="#bae6fd" stroke-width="2" stroke-linecap="round"/>
+  <path d="M120 30 C180 20 250 40 320 25" stroke="#bae6fd" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Mountain Hills -->
+  <path d="M0 170 Q100 120 220 160 T400 140 L400 240 L0 240 Z" fill="url(#windHill)" opacity="0.8"/>
+  <path d="M0 195 Q140 160 280 190 T400 180 L400 240 L0 240 Z" fill="#047857"/>
+
+  <!-- Wind Turbine 1 (Main Left) -->
+  <g transform="translate(130, 80)">
+    <line x1="0" y1="0" x2="0" y2="110" stroke="#f8fafc" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="0" cy="0" r="6" fill="#64748b"/>
+    <!-- 3 Blades -->
+    <path d="M0 0 L-6 -50 L6 -50 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="0.5"/>
+    <path d="M0 0 L45 25 L38 35 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="0.5"/>
+    <path d="M0 0 L-40 28 L-46 18 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="0.5"/>
+  </g>
+
+  <!-- Wind Turbine 2 (Right) -->
+  <g transform="translate(260, 60)">
+    <line x1="0" y1="0" x2="0" y2="125" stroke="#f8fafc" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="0" cy="0" r="7" fill="#64748b"/>
+    <path d="M0 0 L-35 -40 L-25 -48 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="0.5"/>
+    <path d="M0 0 L52 -5 L52 8 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="0.5"/>
+    <path d="M0 0 L-18 50 L-30 45 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="0.5"/>
+  </g>
+
+  <!-- Badge -->
+  <rect x="16" y="16" width="115" height="28" rx="14" fill="#ffffff" opacity="0.9"/>
+  <circle cx="30" cy="30" r="7" fill="#0ea5e9"/>
+  <text x="44" y="34" font-family="system-ui, sans-serif" font-weight="700" font-size="11" fill="#0f172a">WIND 1.7 MW</text>
+</svg>

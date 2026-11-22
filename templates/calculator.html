@@ -1,0 +1,290 @@
+{% extends 'base.html' %}
+
+{% block title %}Solar & Energy Savings Calculator - Community Renewable Energy Portal{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<div class="py-5 bg-white border-bottom">
+  <div class="container text-center">
+    <span class="badge bg-warning-subtle text-warning border border-warning-subtle px-3 py-1 rounded-pill mb-2">
+      Financial & Environmental Modeler
+    </span>
+    <h1 class="fw-bold mb-3">Solar & Carbon Energy Savings Calculator</h1>
+    <p class="text-muted max-w-700 mx-auto mb-0">
+      Dynamically simulate how switching to solar energy reduces your monthly electricity bill, protects against utility tariff inflation, and slashes your household's carbon footprint.
+    </p>
+  </div>
+</div>
+
+<div class="py-5">
+  <div class="container">
+    <div class="row g-5">
+      <!-- Calculator Inputs Form -->
+      <div class="col-lg-5">
+        <div class="calc-card">
+          <div class="d-flex align-items-center justify-content-between mb-4 pb-2 border-bottom">
+            <h4 class="fw-bold mb-0 text-dark"><i class="bi bi-sliders text-success me-2"></i> Your Energy Inputs</h4>
+            <span class="badge bg-light text-muted border">Dynamic Sizing</span>
+          </div>
+
+          <!-- Input 1: Monthly Bill -->
+          <div class="mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <label for="input-monthly-bill" class="form-label fw-bold small text-secondary mb-0">
+                Average Monthly Electric Bill ($)
+              </label>
+              <div class="input-group input-group-sm" style="width: 120px;">
+                <span class="input-group-text">$</span>
+                <input type="number" id="input-monthly-bill" class="form-control text-end fw-bold" value="150" min="20" max="2000" step="5">
+              </div>
+            </div>
+            <input type="range" class="form-range" id="slider-monthly-bill" min="20" max="1000" step="5" value="150">
+            <div class="d-flex justify-content-between small text-muted">
+              <span>$20</span>
+              <span>$500</span>
+              <span>$1,000+</span>
+            </div>
+          </div>
+
+          <!-- Input 2: Utility Tariff Rate -->
+          <div class="mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <label for="input-tariff-rate" class="form-label fw-bold small text-secondary mb-0">
+                Utility Tariff Rate ($/kWh)
+              </label>
+              <div class="input-group input-group-sm" style="width: 120px;">
+                <span class="input-group-text">$</span>
+                <input type="number" id="input-tariff-rate" class="form-control text-end fw-bold" value="0.16" min="0.05" max="0.60" step="0.01">
+              </div>
+            </div>
+            <input type="range" class="form-range" id="slider-tariff-rate" min="0.05" max="0.50" step="0.01" value="0.16">
+            <div class="d-flex justify-content-between small text-muted">
+              <span>$0.05 (Low)</span>
+              <span>$0.16 (Avg)</span>
+              <span>$0.50 (High)</span>
+            </div>
+          </div>
+
+          <!-- Input 3: Available Roof Space -->
+          <div class="mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <label for="input-roof-area" class="form-label fw-bold small text-secondary mb-0">
+                Available Unshaded Roof Area (sq. ft.)
+              </label>
+              <div class="input-group input-group-sm" style="width: 120px;">
+                <input type="number" id="input-roof-area" class="form-control text-end fw-bold" value="500" min="100" max="5000" step="50">
+                <span class="input-group-text">sq.ft</span>
+              </div>
+            </div>
+            <input type="range" class="form-range" id="slider-roof-area" min="100" max="2500" step="50" value="500">
+            <div class="d-flex justify-content-between small text-muted">
+              <span>100 sq.ft</span>
+              <span>1,200 sq.ft</span>
+              <span>2,500+ sq.ft</span>
+            </div>
+          </div>
+
+          <!-- Input 4: Daily Peak Sunlight Hours -->
+          <div class="mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <label for="input-sunlight" class="form-label fw-bold small text-secondary mb-0">
+                Avg. Daily Peak Sunlight (hours/day)
+              </label>
+              <div class="input-group input-group-sm" style="width: 120px;">
+                <input type="number" id="input-sunlight" class="form-control text-end fw-bold" value="5.0" min="2.5" max="8.0" step="0.1">
+                <span class="input-group-text">hrs</span>
+              </div>
+            </div>
+            <input type="range" class="form-range" id="slider-sunlight" min="2.5" max="7.5" step="0.1" value="5.0">
+            <div class="d-flex justify-content-between small text-muted">
+              <span>3.0 (Cloudy/Northern)</span>
+              <span>5.0 (Moderate)</span>
+              <span>7.0 (Sunny/Desert)</span>
+            </div>
+          </div>
+
+          <!-- Input 5: Clean Energy Offset Percentage -->
+          <div class="mb-4">
+            <label for="select-offset" class="form-label fw-bold small text-secondary">
+              Desired Electric Bill Offset Target
+            </label>
+            <select id="select-offset" class="form-select">
+              <option value="50">50% Offset (Modest system, lower upfront cost)</option>
+              <option value="75">75% Offset (Balanced approach)</option>
+              <option value="100" selected>100% Net Zero Offset (Recommended)</option>
+              <option value="120">120% Offset (Future-proof for EV / Heat Pump)</option>
+            </select>
+          </div>
+
+          <!-- Status badge for roof space -->
+          <div id="calc-roof-status" class="mb-3 text-center"></div>
+
+          <!-- Action Buttons -->
+          <div class="d-grid gap-2">
+            {% if current_user %}
+              <button id="btn-save-calc" class="btn btn-emerald fw-semibold">
+                <i class="bi bi-bookmark-check me-1"></i> Save Calculation to Profile
+              </button>
+            {% else %}
+              <a href="{{ url_for('login') }}?next={{ url_for('calculator') }}" class="btn btn-outline-emerald fw-semibold">
+                <i class="bi bi-box-arrow-in-right me-1"></i> Log In to Save Calculations
+              </a>
+            {% endif %}
+            <button id="btn-print-calc" class="btn btn-light border fw-semibold text-secondary">
+              <i class="bi bi-printer me-1"></i> Print / Export Report
+            </button>
+          </div>
+
+          <div id="calc-save-status"></div>
+        </div>
+      </div>
+
+      <!-- Results & Visual Graphs Column -->
+      <div class="col-lg-7">
+        <!-- Results Hero Box -->
+        <div class="calc-result-box mb-4">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <span class="badge bg-white bg-opacity-20 text-white border border-white border-opacity-25 px-3 py-1">
+              Estimated System Specification
+            </span>
+            <small class="text-white-50"><i class="bi bi-clock-history me-1"></i> Live dynamic calculation</small>
+          </div>
+
+          <div class="row g-3 text-center mb-4">
+            <div class="col-sm-4 col-6">
+              <div class="p-3 bg-black bg-opacity-25 rounded-3">
+                <div class="calc-metric-value" id="calc-recommended-kw">5.8 kW</div>
+                <div class="calc-metric-sub">Recommended System</div>
+              </div>
+            </div>
+            <div class="col-sm-4 col-6">
+              <div class="p-3 bg-black bg-opacity-25 rounded-3">
+                <div class="calc-metric-value" id="calc-monthly-savings">$135</div>
+                <div class="calc-metric-sub">Monthly Bill Savings</div>
+              </div>
+            </div>
+            <div class="col-sm-4 col-12">
+              <div class="p-3 bg-black bg-opacity-25 rounded-3">
+                <div class="calc-metric-value" id="calc-annual-savings">$1,620</div>
+                <div class="calc-metric-sub">Est. Annual Savings</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row g-3 text-center">
+            <div class="col-md-3 col-6">
+              <div class="p-2 bg-white bg-opacity-10 rounded-2">
+                <small class="d-block text-white-50">Panels Needed</small>
+                <strong class="text-white fs-6" id="calc-panels-count">15 Panels (400W)</strong>
+              </div>
+            </div>
+            <div class="col-md-3 col-6">
+              <div class="p-2 bg-white bg-opacity-10 rounded-2">
+                <small class="d-block text-white-50">Solar Generation</small>
+                <strong class="text-white fs-6" id="calc-solar-gen">720 kWh/mo</strong>
+              </div>
+            </div>
+            <div class="col-md-3 col-6">
+              <div class="p-2 bg-white bg-opacity-10 rounded-2">
+                <small class="d-block text-white-50">Est. Payback</small>
+                <strong class="text-white fs-6" id="calc-payback-years">6.2 Years</strong>
+              </div>
+            </div>
+            <div class="col-md-3 col-6">
+              <div class="p-2 bg-white bg-opacity-10 rounded-2">
+                <small class="d-block text-white-50">Net System Cost</small>
+                <strong class="text-white fs-6" id="calc-net-cost">$11,368</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Environmental Impact Equivalencies -->
+        <div class="p-4 bg-white rounded-4 border shadow-sm mb-4">
+          <h5 class="fw-bold mb-3 text-dark"><i class="bi bi-shield-check text-success me-2"></i> Estimated Carbon Offset & Environmental Dividend</h5>
+          <div class="row g-3 text-center">
+            <div class="col-4">
+              <div class="p-3 bg-success-subtle rounded-3 border border-success-subtle">
+                <i class="bi bi-cloud-slash-fill text-success fs-3"></i>
+                <div class="fw-bold fs-5 text-dark mt-2" id="calc-co2-tons">6.1 Tons</div>
+                <small class="text-muted">CO₂ Avoided / Year</small>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="p-3 bg-emerald-subtle rounded-3 border border-success-subtle" style="background-color: #ecfdf5;">
+                <i class="bi bi-tree-fill text-success fs-3"></i>
+                <div class="fw-bold fs-5 text-dark mt-2" id="calc-trees-count">98 Trees</div>
+                <small class="text-muted">Equivalent Planted</small>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="p-3 bg-info-subtle rounded-3 border border-info-subtle">
+                <i class="bi bi-fuel-pump-fill text-info fs-3"></i>
+                <div class="fw-bold fs-5 text-dark mt-2" id="calc-car-miles">15,120</div>
+                <small class="text-muted">Car Miles Avoided</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chart 1: Monthly Cost Comparison -->
+        <div class="p-4 bg-white rounded-4 border shadow-sm mb-4">
+          <h5 class="fw-bold mb-1 text-dark"><i class="bi bi-bar-chart-fill text-primary me-2"></i> Monthly Electricity Bill Comparison</h5>
+          <p class="text-muted small mb-3">Comparing your current grid bill versus your projected bill with rooftop solar panels.</p>
+          <div style="height: 260px;">
+            <canvas id="monthlyCostChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 2: 25-Year Cumulative Savings Projection -->
+        <div class="p-4 bg-white rounded-4 border shadow-sm">
+          <h5 class="fw-bold mb-1 text-dark"><i class="bi bi-graph-up-arrow text-success me-2"></i> 25-Year Cumulative Savings Projection</h5>
+          <p class="text-muted small mb-3">Simulates 25-year total avoided energy expenditures factoring in a standard 3% annual utility rate escalation.</p>
+          <div style="height: 280px;">
+            <canvas id="projectionChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- User's Saved Calculations History (if logged in) -->
+    {% if current_user and user_calculations %}
+      <div class="mt-5 p-4 bg-white rounded-4 border shadow-sm">
+        <h4 class="fw-bold mb-3"><i class="bi bi-clock-history text-secondary me-2"></i> Your Saved Energy Calculations</h4>
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>Date</th>
+                <th>Monthly Bill</th>
+                <th>Recommended System</th>
+                <th>Monthly Savings</th>
+                <th>Annual Savings</th>
+                <th>CO₂ Reduced</th>
+                <th>Est. Payback</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in user_calculations %}
+                <tr>
+                  <td class="small text-muted">{{ item.created_at.strftime('%b %d, %Y') }}</td>
+                  <td class="fw-bold">${{ "%.0f"|format(item.monthly_bill) }}</td>
+                  <td><span class="badge bg-light text-dark border">{{ item.recommended_kw }} kW</span></td>
+                  <td class="text-success fw-bold">${{ "%.0f"|format(item.monthly_savings) }}/mo</td>
+                  <td class="text-success fw-bold">${{ "%.0f"|format(item.annual_savings) }}/yr</td>
+                  <td>{{ item.co2_reduction_tons }} Tons/yr</td>
+                  <td>{{ item.payback_years }} Years</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/calculator.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block title %}Create an Account - Community Renewable Energy Portal{% endblock %}
+
+{% block content %}
+<div class="py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-7 col-lg-6">
+        <div class="p-4 p-md-5 bg-white rounded-4 border shadow-sm">
+          <div class="text-center mb-4">
+            <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="Logo" class="mb-3" style="height: 48px;">
+            <h3 class="fw-bold text-dark">Join the Green Movement</h3>
+            <p class="text-muted small">Register to save your calculations, join discussions, and support local clean energy.</p>
+          </div>
+
+          <form action="{{ url_for('register') }}" method="POST">
+            <div class="row g-3 mb-3">
+              <!-- Name -->
+              <div class="col-12">
+                <label class="form-label fw-semibold small text-dark">Full Name *</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-light"><i class="bi bi-person"></i></span>
+                  <input type="text" name="name" class="form-control" placeholder="e.g. Sarah Jenkins" value="{{ form_data.name if form_data else '' }}" required minlength="2">
+                </div>
+              </div>
+
+              <!-- Email -->
+              <div class="col-12">
+                <label class="form-label fw-semibold small text-dark">Email Address *</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-light"><i class="bi bi-envelope"></i></span>
+                  <input type="email" name="email" class="form-control" placeholder="sarah@example.com" value="{{ form_data.email if form_data else '' }}" required>
+                </div>
+              </div>
+
+              <!-- Location -->
+              <div class="col-md-6">
+                <label class="form-label fw-semibold small text-dark">City / Community District</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-light"><i class="bi bi-geo-alt"></i></span>
+                  <input type="text" name="location" class="form-control" placeholder="e.g. Boulder, CO" value="{{ form_data.location if form_data else '' }}">
+                </div>
+              </div>
+
+              <!-- Energy Interest -->
+              <div class="col-md-6">
+                <label class="form-label fw-semibold small text-dark">Clean Energy Interest</label>
+                <select name="energy_interest" class="form-select">
+                  <option value="Rooftop Solar & Efficiency">Rooftop Solar & Efficiency</option>
+                  <option value="Community Solar Farm">Community Solar Farm</option>
+                  <option value="Wind & Microgrids">Wind & Microgrids</option>
+                  <option value="Biomass & Zero-Waste">Biomass & Zero-Waste</option>
+                  <option value="General Clean Energy">General Clean Energy Advocate</option>
+                </select>
+              </div>
+
+              <!-- Password -->
+              <div class="col-md-6">
+                <label class="form-label fw-semibold small text-dark">Password *</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-light"><i class="bi bi-lock"></i></span>
+                  <input type="password" name="password" class="form-control" placeholder="At least 6 characters" required minlength="6">
+                </div>
+              </div>
+
+              <!-- Confirm Password -->
+              <div class="col-md-6">
+                <label class="form-label fw-semibold small text-dark">Confirm Password *</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-light"><i class="bi bi-check-all"></i></span>
+                  <input type="password" name="confirm_password" class="form-control" placeholder="Repeat password" required minlength="6">
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-emerald w-100 fw-semibold mb-3 py-2">
+              <i class="bi bi-person-check-fill me-1"></i> Register Free Account
+            </button>
+          </form>
+
+          <div class="text-center small text-muted">
+            Already have an account? 
+            <a href="{{ url_for('login') }}" class="text-success fw-semibold text-decoration-none">Log In here</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

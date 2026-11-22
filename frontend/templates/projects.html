@@ -1,0 +1,256 @@
+{% extends 'base.html' %}
+
+{% block title %}Renewable Energy Projects & Solar Installation Guide{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<div class="py-5 bg-white border-bottom">
+  <div class="container text-center">
+    <span class="badge bg-info-subtle text-info border border-info-subtle px-3 py-1 rounded-pill mb-2">
+      Community Infrastructure
+    </span>
+    <h1 class="fw-bold mb-3">Community Renewable Energy Projects</h1>
+    <p class="text-muted max-w-700 mx-auto mb-4">
+      Explore decentralized solar farms, cooperative wind installations, micro-hydro systems, and agricultural biomass units bringing clean, resilient power to neighborhoods.
+    </p>
+    <div class="d-flex justify-content-center gap-3">
+      {% if current_user %}
+        <button class="btn btn-emerald" data-bs-toggle="modal" data-bs-target="#proposeProjectModal">
+          <i class="bi bi-plus-circle me-1"></i> Propose a Community Project
+        </button>
+      {% else %}
+        <a href="{{ url_for('login') }}?next={{ url_for('projects') }}" class="btn btn-emerald">
+          <i class="bi bi-plus-circle me-1"></i> Log In to Propose a Project
+        </a>
+      {% endif %}
+      <a href="#installation-guide" class="btn btn-outline-secondary">
+        <i class="bi bi-tools me-1"></i> Solar Installation Guide
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="py-5">
+  <div class="container">
+    <!-- Filter Bar -->
+    <div class="p-3 bg-white rounded-4 border shadow-sm mb-5">
+      <form method="GET" action="{{ url_for('projects') }}" class="row g-3 align-items-center">
+        <div class="col-md-5">
+          <label class="form-label small text-muted fw-semibold mb-1">Energy Category</label>
+          <select name="category" class="form-select form-select-sm" onchange="this.form.submit()">
+            <option value="All" {% if selected_category == 'All' %}selected{% endif %}>All Categories (Solar, Wind, Hydro, Biomass)</option>
+            <option value="Solar" {% if selected_category == 'Solar' %}selected{% endif %}>Solar Energy</option>
+            <option value="Wind" {% if selected_category == 'Wind' %}selected{% endif %}>Wind Energy</option>
+            <option value="Hydro" {% if selected_category == 'Hydro' %}selected{% endif %}>Hydro Energy</option>
+            <option value="Biomass" {% if selected_category == 'Biomass' %}selected{% endif %}>Biomass & Biogas</option>
+          </select>
+        </div>
+        <div class="col-md-5">
+          <label class="form-label small text-muted fw-semibold mb-1">Project Status</label>
+          <select name="status" class="form-select form-select-sm" onchange="this.form.submit()">
+            <option value="All" {% if selected_status == 'All' %}selected{% endif %}>All Statuses (Active, Planning, Completed)</option>
+            <option value="Active" {% if selected_status == 'Active' %}selected{% endif %}>Active Generating</option>
+            <option value="Planning" {% if selected_status == 'Planning' %}selected{% endif %}>Planning & Feasibility</option>
+          </select>
+        </div>
+        <div class="col-md-2 d-flex align-items-end">
+          <a href="{{ url_for('projects') }}" class="btn btn-sm btn-light border w-100 mt-md-4">
+            Reset Filter
+          </a>
+        </div>
+      </form>
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="row g-4 mb-5">
+      {% for project in projects %}
+        <div class="col-lg-4 col-md-6">
+          <div class="project-card">
+            <div class="project-card-img-wrapper">
+              <img src="{{ url_for('static', filename='img/' + (project.image_url or 'solar_farm.svg')) }}" alt="{{ project.title }}" class="project-card-img">
+              <div class="position-absolute top-0 start-0 m-3">
+                <span class="badge badge-{{ project.category.lower() }} px-3 py-1 shadow-sm">
+                  {{ project.category }}
+                </span>
+              </div>
+              <div class="position-absolute top-0 end-0 m-3">
+                <span class="badge badge-status-{{ project.status.lower() }} px-3 py-1 shadow-sm">
+                  {{ project.status }}
+                </span>
+              </div>
+            </div>
+            <div class="p-4 d-flex flex-column flex-grow-1">
+              <h5 class="fw-bold mb-2">{{ project.title }}</h5>
+              <p class="text-muted small mb-2"><i class="bi bi-geo-alt-fill text-danger me-1"></i> {{ project.location }}</p>
+              <p class="text-secondary small mb-3 flex-grow-1">{{ project.description[:110] }}...</p>
+              
+              <div class="bg-light p-3 rounded-3 mb-3 small">
+                <div class="d-flex justify-content-between mb-1">
+                  <span class="text-muted">Total Capacity:</span>
+                  <strong>{{ project.capacity }}</strong>
+                </div>
+                <div class="d-flex justify-content-between mb-1">
+                  <span class="text-muted">Annual Output:</span>
+                  <strong>{{ project.annual_generation }} MWh/yr</strong>
+                </div>
+                <div class="d-flex justify-content-between mb-1">
+                  <span class="text-muted">CO₂ Avoided:</span>
+                  <strong class="text-success">{{ project.co2_saved_annual }} Tons/yr</strong>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span class="text-muted">Subscribers:</span>
+                  <strong>{{ project.participants_count }} Members</strong>
+                </div>
+              </div>
+
+              <a href="{{ url_for('project_detail', project_id=project.id) }}" class="btn btn-sm btn-outline-emerald w-100 fw-semibold">
+                View Full Project & Guide <i class="bi bi-arrow-right ms-1"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <!-- Solar Panel Installation Guide Section -->
+    <div class="p-4 p-md-5 bg-white rounded-4 border shadow-sm mb-5" id="installation-guide">
+      <div class="text-center max-w-700 mx-auto mb-5">
+        <span class="badge bg-warning-subtle text-warning border border-warning-subtle px-3 py-1 rounded-pill mb-2">
+          Step-by-Step Blueprint
+        </span>
+        <h2 class="fw-bold mb-2">Solar Panel Installation Guide</h2>
+        <p class="text-muted">A comprehensive 5-phase roadmap for community homeowners and neighborhood associations to successfully execute a solar project.</p>
+      </div>
+
+      <div class="row g-4">
+        <!-- Phase 1 -->
+        <div class="col-lg-4 col-md-6">
+          <div class="p-4 bg-light rounded-4 border h-100">
+            <div class="badge bg-primary px-3 py-1 rounded-pill mb-3">Phase 1</div>
+            <h5 class="fw-bold mb-2">Energy Audit & Sizing</h5>
+            <p class="small text-muted mb-3">Review past 12 months of utility electric bills to determine total annual kWh demand and analyze roof azimuth and shading.</p>
+            <ul class="list-unstyled small text-secondary mb-0">
+              <li class="mb-1"><i class="bi bi-check2 text-success me-1"></i> Determine peak monthly kWh consumption</li>
+              <li class="mb-1"><i class="bi bi-check2 text-success me-1"></i> Satellite roof LiDAR tilt & orientation audit</li>
+              <li><i class="bi bi-check2 text-success me-1"></i> Check electrical main service panel (200A)</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Phase 2 -->
+        <div class="col-lg-4 col-md-6">
+          <div class="p-4 bg-light rounded-4 border h-100">
+            <div class="badge bg-info text-dark px-3 py-1 rounded-pill mb-3">Phase 2</div>
+            <h5 class="fw-bold mb-2">Quotations & System Design</h5>
+            <p class="small text-muted mb-3">Receive multiple bids from certified NABCEP installers. Compare monocrystalline bifacial panels and microinverters vs string systems.</p>
+            <ul class="list-unstyled small text-secondary mb-0">
+              <li class="mb-1"><i class="bi bi-check2 text-success me-1"></i> 3 competitive contractor proposals</li>
+              <li class="mb-1"><i class="bi bi-check2 text-success me-1"></i> Review 25-year manufacturer warranties</li>
+              <li><i class="bi bi-check2 text-success me-1"></i> Incorporate optional LFP battery storage</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Phase 3 -->
+        <div class="col-lg-4 col-md-6">
+          <div class="p-4 bg-light rounded-4 border h-100">
+            <div class="badge bg-warning text-dark px-3 py-1 rounded-pill mb-3">Phase 3</div>
+            <h5 class="fw-bold mb-2">Permitting & Interconnect</h5>
+            <p class="small text-muted mb-3">Submit engineering line diagrams and structural calculations to the local municipal building department and electric utility.</p>
+            <ul class="list-unstyled small text-secondary mb-0">
+              <li class="mb-1"><i class="bi bi-check2 text-success me-1"></i> Local municipal electrical building permit</li>
+              <li class="mb-1"><i class="bi bi-check2 text-success me-1"></i> HOA or neighborhood association approval</li>
+              <li><i class="bi bi-check2 text-success me-1"></i> Utility Net Metering Interconnect Agreement</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Phase 4 -->
+        <div class="col-lg-6">
+          <div class="p-4 bg-light rounded-4 border h-100">
+            <div class="badge bg-success px-3 py-1 rounded-pill mb-3">Phase 4</div>
+            <h5 class="fw-bold mb-2">Physical Installation & Wiring</h5>
+            <p class="small text-muted mb-3">Certified technicians mount heavy-duty aluminum racking into rafters, lay flashing to prevent roof leaks, and securely fasten solar modules.</p>
+            <ul class="list-unstyled small text-secondary mb-0">
+              <li class="mb-1"><i class="bi bi-check2 text-success me-1"></i> Lag bolts and weatherproof waterproof flashing</li>
+              <li class="mb-1"><i class="bi bi-check2 text-success me-1"></i> DC conduit routing and inverter grounding</li>
+              <li><i class="bi bi-check2 text-success me-1"></i> Rapid shutdown switch and AC disconnect safety switch</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Phase 5 -->
+        <div class="col-lg-6">
+          <div class="p-4 bg-light rounded-4 border h-100">
+            <div class="badge bg-dark px-3 py-1 rounded-pill mb-3">Phase 5</div>
+            <h5 class="fw-bold mb-2">Inspection & Permission to Operate (PTO)</h5>
+            <p class="small text-muted mb-3">City inspector reviews physical build against the permit. Utility installs a bi-directional smart meter and issues PTO.</p>
+            <ul class="list-unstyled small text-secondary mb-0">
+              <li class="mb-1"><i class="bi bi-check2 text-success me-1"></i> Municipal safety and code sign-off</li>
+              <li class="mb-1"><i class="bi bi-check2 text-success me-1"></i> Bi-directional net meter installation by utility</li>
+              <li><i class="bi bi-check2 text-success me-1"></i> Mobile app monitoring telemetry activated!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Propose a Community Project -->
+<div class="modal fade" id="proposeProjectModal" tabindex="-1" aria-labelledby="proposeProjectModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content rounded-4 border-0 shadow">
+      <div class="modal-header bg-light border-bottom">
+        <h5 class="modal-title fw-bold" id="proposeProjectModalLabel">
+          <i class="bi bi-lightbulb-fill text-success me-2"></i> Propose a New Community Renewable Project
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="{{ url_for('propose_project') }}" method="POST">
+        <div class="modal-body p-4">
+          <div class="row g-3">
+            <div class="col-md-8">
+              <label class="form-label fw-semibold small">Project Title *</label>
+              <input type="text" name="title" class="form-control" placeholder="e.g. Oakridge High School Community Solar Canopy" required>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label fw-semibold small">Category *</label>
+              <select name="category" class="form-select" required>
+                <option value="Solar">Solar Energy</option>
+                <option value="Wind">Wind Energy</option>
+                <option value="Hydro">Micro-Hydro</option>
+                <option value="Biomass">Biomass & Biogas</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold small">Location / Community District *</label>
+              <input type="text" name="location" class="form-control" placeholder="e.g. East Valley District, Boulder, CO" required>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label fw-semibold small">Target Capacity *</label>
+              <input type="text" name="capacity" class="form-control" placeholder="e.g. 250 kW or 1.2 MW" required>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label fw-semibold small">Est. Budget ($)</label>
+              <input type="number" name="budget" class="form-control" placeholder="300000" step="1000">
+            </div>
+            <div class="col-12">
+              <label class="form-label fw-semibold small">Project Description & Community Benefits *</label>
+              <textarea name="description" class="form-control" rows="4" placeholder="Describe the project goals, who will benefit, and the planned installation site..." required></textarea>
+            </div>
+            <div class="col-12">
+              <label class="form-label fw-semibold small">Planned Implementation Steps / Guidelines</label>
+              <textarea name="installation_guide" class="form-control" rows="3" placeholder="Outline steps for site approval, engineering, and community subscription onboarding..."></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer bg-light border-top">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-emerald fw-semibold">Submit Project Proposal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,339 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Community Renewable Energy Awareness & Management Portal{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <div class="hero-badge">
+          <i class="bi bi-brightness-high-fill text-warning"></i>
+          <span>Empowering Communities Toward 100% Clean Energy</span>
+        </div>
+        <h1 class="hero-title mb-3">
+          Powering Our Future With <span class="text-highlight">Clean Renewable Energy</span>
+        </h1>
+        <p class="hero-subtitle mb-4">
+          Welcome to the <strong>Community Renewable Energy Awareness and Management Portal</strong>. Discover how solar, wind, hydro, and biomass energy can power homes, reduce harmful pollution, slash electricity bills, and build resilient local microgrids.
+        </p>
+        <div class="d-flex flex-wrap gap-3 mb-4">
+          <a href="{{ url_for('register') if not current_user else url_for('dashboard') }}" class="btn btn-emerald btn-lg shadow-sm">
+            <i class="bi bi-rocket-takeoff-fill me-2"></i> Get Started
+          </a>
+          <a href="{{ url_for('calculator') }}" class="btn btn-ocean btn-lg shadow-sm">
+            <i class="bi bi-calculator me-2"></i> Calculate Savings
+          </a>
+          <a href="{{ url_for('awareness') }}" class="btn btn-outline-emerald btn-lg">
+            <i class="bi bi-book-half me-2"></i> Explore Sources
+          </a>
+        </div>
+        <div class="d-flex align-items-center gap-4 text-secondary small pt-2">
+          <div><i class="bi bi-check-circle-fill text-success me-1"></i> Interactive Sizing Tools</div>
+          <div><i class="bi bi-check-circle-fill text-success me-1"></i> Community Microgrids</div>
+          <div><i class="bi bi-check-circle-fill text-success me-1"></i> Zero Emissions</div>
+        </div>
+      </div>
+      <div class="col-lg-6 text-center">
+        <img src="{{ url_for('static', filename='img/hero_illustration.svg') }}" alt="Renewable Energy Eco-City" class="hero-img">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Impact Metrics Banner -->
+<section class="py-5 bg-white border-bottom">
+  <div class="container">
+    <div class="row g-4 text-center">
+      <div class="col-lg-3 col-sm-6">
+        <div class="stat-card">
+          <div class="text-success mb-2"><i class="bi bi-people-fill fs-2"></i></div>
+          <div class="stat-value">{{ total_members }}</div>
+          <div class="stat-label">Registered Members</div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div class="stat-card">
+          <div class="text-primary mb-2"><i class="bi bi-lightning-charge-fill fs-2"></i></div>
+          <div class="stat-value">{{ total_generation }} <span class="fs-5 text-muted">MWh</span></div>
+          <div class="stat-label">Annual Clean Power</div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div class="stat-card">
+          <div class="text-info mb-2"><i class="bi bi-tree-fill fs-2"></i></div>
+          <div class="stat-value">{{ total_co2 }} <span class="fs-5 text-muted">Tons</span></div>
+          <div class="stat-label">CO₂ Offset Annually</div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div class="stat-card">
+          <div class="text-warning mb-2"><i class="bi bi-grid-fill fs-2"></i></div>
+          <div class="stat-value">{{ total_projects }}</div>
+          <div class="stat-label">Community Projects</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Renewable Energy Sources Section -->
+<section class="py-5" id="sources">
+  <div class="container">
+    <div class="text-center max-w-700 mx-auto mb-5">
+      <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-1 rounded-pill mb-2">
+        Core Pillars
+      </span>
+      <h2 class="fw-bold mb-3">Explore Clean Renewable Energy Sources</h2>
+      <p class="text-muted">
+        Renewable energy harnesses inexhaustible natural cycles to generate electricity with zero direct combustion emissions. Learn how each technology works and where it excels.
+      </p>
+    </div>
+
+    <div class="row g-4">
+      <!-- 1. Solar Energy -->
+      <div class="col-lg-3 col-md-6">
+        <div class="feature-card">
+          <div class="feature-icon-wrapper icon-solar">
+            <i class="bi bi-sun-fill"></i>
+          </div>
+          <h4 class="fw-bold mb-2">Solar Energy</h4>
+          <p class="text-muted small mb-3">
+            Harnessing photon irradiance using photovoltaic (PV) semiconductor cells to produce clean, distributed electricity for rooftops and solar farms.
+          </p>
+          <ul class="list-unstyled small text-secondary mb-4 flex-grow-1">
+            <li class="mb-1"><i class="bi bi-check2 text-success me-1"></i> Rooftop & community solar gardens</li>
+            <li class="mb-1"><i class="bi bi-check2 text-success me-1"></i> 25–30 year operational lifespan</li>
+            <li class="mb-1"><i class="bi bi-check2 text-success me-1"></i> Zero carbon emissions during use</li>
+          </ul>
+          <a href="{{ url_for('awareness') }}#solar" class="btn btn-sm btn-outline-warning text-dark w-100 fw-semibold">
+            Learn Solar <i class="bi bi-arrow-right ms-1"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- 2. Wind Energy -->
+      <div class="col-lg-3 col-md-6">
+        <div class="feature-card">
+          <div class="feature-icon-wrapper icon-wind">
+            <i class="bi bi-wind"></i>
+          </div>
+          <h4 class="fw-bold mb-2">Wind Energy</h4>
+          <p class="text-muted small mb-3">
+            Converting kinetic air currents through aerodynamic rotor blades into mechanical and electrical power with extreme cost efficiency.
+          </p>
+          <ul class="list-unstyled small text-secondary mb-4 flex-grow-1">
+            <li class="mb-1"><i class="bi bi-check2 text-success me-1"></i> Onshore & offshore wind farms</li>
+            <li class="mb-1"><i class="bi bi-check2 text-success me-1"></i> High Energy Return on Investment</li>
+            <li class="mb-1"><i class="bi bi-check2 text-success me-1"></i> Preserves agricultural land use</li>
+          </ul>
+          <a href="{{ url_for('awareness') }}#wind" class="btn btn-sm btn-outline-info text-dark w-100 fw-semibold">
+            Learn Wind <i class="bi bi-arrow-right ms-1"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- 3. Hydro Energy -->
+      <div class="col-lg-3 col-md-6">
+        <div class="feature-card">
+          <div class="feature-icon-wrapper icon-hydro">
+            <i class="bi bi-water"></i>
+          </div>
+          <h4 class="fw-bold mb-2">Hydro Energy</h4>
+          <p class="text-muted small mb-3">
+            Capturing the continuous gravitational kinetic energy of flowing water using run-of-river Pelton or Francis turbines without large ecological dams.
+          </p>
+          <ul class="list-unstyled small text-secondary mb-4 flex-grow-1">
+            <li class="mb-1"><i class="bi bi-check2 text-success me-1"></i> Continuous 24/7 baseload power</li>
+            <li class="mb-1"><i class="bi bi-check2 text-success me-1"></i> 70%–90% capacity factors</li>
+            <li class="mb-1"><i class="bi bi-check2 text-success me-1"></i> Zero fuel consumption</li>
+          </ul>
+          <a href="{{ url_for('awareness') }}#hydro" class="btn btn-sm btn-outline-primary w-100 fw-semibold">
+            Learn Hydro <i class="bi bi-arrow-right ms-1"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- 4. Biomass Energy -->
+      <div class="col-lg-3 col-md-6">
+        <div class="feature-card">
+          <div class="feature-icon-wrapper icon-biomass">
+            <i class="bi bi-tree-fill"></i>
+          </div>
+          <h4 class="fw-bold mb-2">Biomass Energy</h4>
+          <p class="text-muted small mb-3">
+            Transforming organic agricultural residues, forestry waste, and animal manure into clean biogas and biofuels via anaerobic digestors.
+          </p>
+          <ul class="list-unstyled small text-secondary mb-4 flex-grow-1">
+            <li class="mb-1"><i class="bi bi-check2 text-success me-1"></i> Circular waste-to-energy economy</li>
+            <li class="mb-1"><i class="bi bi-check2 text-success me-1"></i> Produces organic bio-fertilizer</li>
+            <li class="mb-1"><i class="bi bi-check2 text-success me-1"></i> Dispatchable on-demand energy</li>
+          </ul>
+          <a href="{{ url_for('awareness') }}#biomass" class="btn btn-sm btn-outline-success w-100 fw-semibold">
+            Learn Biomass <i class="bi bi-arrow-right ms-1"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Calculator Teaser Callout -->
+<section class="py-5 bg-white border-top border-bottom">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <span class="badge bg-warning-subtle text-warning border border-warning-subtle px-3 py-1 rounded-pill mb-2">
+          Interactive Tool
+        </span>
+        <h2 class="fw-bold mb-3">How Much Could Your Household Save With Solar?</h2>
+        <p class="text-muted mb-4">
+          Our dynamic <strong>Solar & Carbon Savings Calculator</strong> assesses your average monthly electric bill, local solar irradiance, and roof area to estimate:
+        </p>
+        <div class="row g-3 mb-4">
+          <div class="col-sm-6">
+            <div class="p-3 bg-light rounded-3 border">
+              <i class="bi bi-cash-stack text-success fs-4 me-2"></i>
+              <strong class="d-block mt-2">Bill Savings</strong>
+              <small class="text-muted">Estimated monthly & 25-year cumulative financial savings.</small>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="p-3 bg-light rounded-3 border">
+              <i class="bi bi-cloud-slash-fill text-info fs-4 me-2"></i>
+              <strong class="d-block mt-2">Carbon Offset</strong>
+              <small class="text-muted">Metric tons of CO₂ avoided and trees equivalent.</small>
+            </div>
+          </div>
+        </div>
+        <a href="{{ url_for('calculator') }}" class="btn btn-emerald btn-lg">
+          <i class="bi bi-calculator me-2"></i> Launch Savings Calculator
+        </a>
+      </div>
+      <div class="col-lg-6">
+        <div class="calc-result-box text-center">
+          <div class="badge bg-emerald-subtle text-light border border-success mb-3 px-3 py-1">
+            Example 5 kW Residential Setup
+          </div>
+          <div class="row g-3">
+            <div class="col-6">
+              <div class="p-3 bg-black bg-opacity-25 rounded-3">
+                <div class="calc-metric-value">$1,850</div>
+                <div class="calc-metric-sub">Est. Annual Bill Savings</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="p-3 bg-black bg-opacity-25 rounded-3">
+                <div class="calc-metric-value">6.8 Tons</div>
+                <div class="calc-metric-sub">Annual CO₂ Reduced</div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="p-3 bg-black bg-opacity-25 rounded-3">
+                <div class="d-flex justify-content-around text-center">
+                  <div>
+                    <i class="bi bi-tree text-success fs-4"></i>
+                    <div class="fw-bold text-white">110 Trees</div>
+                    <small class="text-white-50">Equivalency</small>
+                  </div>
+                  <div>
+                    <i class="bi bi-fuel-pump text-warning fs-4"></i>
+                    <div class="fw-bold text-white">16,800 Miles</div>
+                    <small class="text-white-50">Car Driving Avoided</small>
+                  </div>
+                  <div>
+                    <i class="bi bi-hourglass-split text-info fs-4"></i>
+                    <div class="fw-bold text-white">5.8 Years</div>
+                    <small class="text-white-50">Est. Payback Period</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a href="{{ url_for('calculator') }}" class="btn btn-sm btn-light w-100 mt-3 fw-bold text-success">
+            Calculate For Your Exact Home <i class="bi bi-arrow-right ms-1"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Community Projects -->
+<section class="py-5">
+  <div class="container">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4">
+      <div>
+        <span class="badge bg-info-subtle text-info border border-info-subtle px-3 py-1 rounded-pill mb-2">
+          Community In Action
+        </span>
+        <h2 class="fw-bold mb-1">Local Renewable Energy Projects</h2>
+        <p class="text-muted mb-0">See how neighborhood cooperatives are installing microgrids, solar gardens, and wind units.</p>
+      </div>
+      <a href="{{ url_for('projects') }}" class="btn btn-outline-emerald mt-3 mt-md-0">
+        View All Projects <i class="bi bi-arrow-right ms-1"></i>
+      </a>
+    </div>
+
+    <div class="row g-4">
+      {% for project in featured_projects %}
+        <div class="col-lg-4 col-md-6">
+          <div class="project-card">
+            <div class="project-card-img-wrapper">
+              <img src="{{ url_for('static', filename='img/' + (project.image_url or 'solar_farm.svg')) }}" alt="{{ project.title }}" class="project-card-img">
+              <div class="position-absolute top-0 start-0 m-3">
+                <span class="badge badge-{{ project.category.lower() }} px-3 py-1 shadow-sm">
+                  {{ project.category }}
+                </span>
+              </div>
+              <div class="position-absolute top-0 end-0 m-3">
+                <span class="badge badge-status-{{ project.status.lower() }} px-3 py-1 shadow-sm">
+                  {{ project.status }}
+                </span>
+              </div>
+            </div>
+            <div class="p-4 d-flex flex-column flex-grow-1">
+              <h5 class="fw-bold mb-2">{{ project.title }}</h5>
+              <p class="text-muted small mb-2"><i class="bi bi-geo-alt-fill text-danger me-1"></i> {{ project.location }}</p>
+              <p class="text-secondary small mb-3 flex-grow-1">{{ project.description[:110] }}...</p>
+              
+              <div class="bg-light p-2 rounded-3 mb-3 d-flex justify-content-between small">
+                <div><strong>Capacity:</strong> {{ project.capacity }}</div>
+                <div><strong>CO₂ Saved:</strong> {{ project.co2_saved_annual }} t/yr</div>
+              </div>
+
+              <a href="{{ url_for('project_detail', project_id=project.id) }}" class="btn btn-sm btn-outline-secondary w-100 fw-semibold">
+                View Project Details
+              </a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Call to Action Section -->
+<section class="py-5 bg-dark text-white text-center" style="background: linear-gradient(135deg, #064e3b 0%, #0f172a 100%);">
+  <div class="container py-3">
+    <h2 class="fw-bold mb-3">Ready to Join the Clean Energy Revolution?</h2>
+    <p class="text-light text-opacity-75 max-w-700 mx-auto mb-4">
+      Whether you want to learn the basics, calculate your household solar ROI, propose a local microgrid, or share your renewable journey with neighbors, our portal is here for you.
+    </p>
+    <div class="d-flex flex-wrap justify-content-center gap-3">
+      {% if not current_user %}
+        <a href="{{ url_for('register') }}" class="btn btn-emerald btn-lg px-4 shadow">
+          <i class="bi bi-person-plus-fill me-2"></i> Create Free Account
+        </a>
+      {% endif %}
+      <a href="{{ url_for('community') }}" class="btn btn-ocean btn-lg px-4 shadow">
+        <i class="bi bi-chat-text-fill me-2"></i> Join Community Discussions
+      </a>
+      <a href="{{ url_for('contact') }}" class="btn btn-outline-light btn-lg px-4">
+        <i class="bi bi-envelope me-2"></i> Contact Our Team
+      </a>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" fill="none">
+  <defs>
+    <linearGradient id="hydBg" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#f0fdfa"/>
+      <stop offset="100%" stop-color="#e0f2fe"/>
+    </linearGradient>
+    <linearGradient id="waterFlow" x1="0" y1="0" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+    <linearGradient id="rockGrad" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#64748b"/>
+      <stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="240" rx="12" fill="url(#hydBg)"/>
+
+  <!-- Mountain Valley background -->
+  <polygon points="0,180 80,70 180,180" fill="url(#rockGrad)" opacity="0.6"/>
+  <polygon points="120,180 230,50 340,180" fill="url(#rockGrad)" opacity="0.75"/>
+  <polygon points="260,180 340,90 420,180" fill="url(#rockGrad)" opacity="0.6"/>
+
+  <!-- River / Water flow -->
+  <path d="M160 80 Q210 120 190 150 Q170 180 220 200 L250 240 L120 240 Q130 190 145 160 Q170 120 160 80 Z" fill="url(#waterFlow)"/>
+
+  <!-- Water splash ripples -->
+  <ellipse cx="205" cy="195" rx="25" ry="6" fill="#bae6fd" opacity="0.8"/>
+  <ellipse cx="195" cy="215" rx="35" ry="8" fill="#bae6fd" opacity="0.7"/>
+
+  <!-- Micro-Hydro Powerhouse -->
+  <g transform="translate(230, 150)">
+    <rect x="0" y="20" width="60" height="45" fill="#f8fafc" stroke="#475569" stroke-width="2" rx="2"/>
+    <polygon points="-5,20 30,0 65,20" fill="#0369a1"/>
+    <rect x="22" y="35" width="16" height="30" fill="#0284c7"/>
+    <circle cx="12" cy="32" r="5" fill="#e2e8f0"/>
+    <circle cx="48" cy="32" r="5" fill="#e2e8f0"/>
+  </g>
+
+  <!-- Penstock Pipe -->
+  <path d="M170 95 L245 170" stroke="#94a3b8" stroke-width="8" stroke-linecap="round"/>
+  <path d="M170 95 L245 170" stroke="#cbd5e1" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Pine trees -->
+  <g transform="translate(60, 140)">
+    <polygon points="20,0 10,20 30,20" fill="#047857"/>
+    <polygon points="20,15 8,35 32,35" fill="#065f46"/>
+    <rect x="18" y="35" width="4" height="10" fill="#78350f"/>
+  </g>
+  <g transform="translate(90, 150)">
+    <polygon points="15,0 7,18 23,18" fill="#059669"/>
+    <polygon points="15,12 5,30 25,30" fill="#047857"/>
+    <rect x="13" y="30" width="4" height="8" fill="#78350f"/>
+  </g>
+
+  <!-- Badge -->
+  <rect x="16" y="16" width="125" height="28" rx="14" fill="#ffffff" opacity="0.9"/>
+  <circle cx="30" cy="30" r="7" fill="#0284c7"/>
+  <text x="44" y="34" font-family="system-ui, sans-serif" font-weight="700" font-size="11" fill="#0f172a">HYDRO 120 kW</text>
+</svg>

@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% block title %}User Profile - {{ user.name }} - Renewable Energy Portal{% endblock %}
+
+{% block content %}
+<div class="py-5 bg-white border-bottom">
+  <div class="container">
+    <div class="row align-items-center g-4">
+      <div class="col-auto">
+        <div class="rounded-circle bg-success text-white d-flex align-items-center justify-content-center fw-bold fs-1 shadow-sm" style="width: 80px; height: 80px;">
+          {{ user.name[0] }}
+        </div>
+      </div>
+      <div class="col">
+        <div class="d-flex align-items-center gap-2 mb-1">
+          <h2 class="fw-bold mb-0 text-dark">{{ user.name }}</h2>
+          <span class="badge bg-success-subtle text-success border border-success-subtle">{{ user.role|capitalize }}</span>
+        </div>
+        <p class="text-muted small mb-0">
+          <i class="bi bi-envelope me-1"></i> {{ user.email }} &bull; 
+          <i class="bi bi-geo-alt me-1"></i> {{ user.location or 'Community Member' }} &bull;
+          <i class="bi bi-calendar3 me-1"></i> Member since {{ user.created_at.strftime('%B %Y') }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="py-5">
+  <div class="container">
+    <div class="row g-5">
+      <!-- Edit Profile Details -->
+      <div class="col-lg-4">
+        <div class="p-4 bg-white rounded-4 border shadow-sm mb-4">
+          <h5 class="fw-bold mb-3 text-dark"><i class="bi bi-pencil-square text-success me-2"></i> Update Profile Details</h5>
+          
+          <form action="{{ url_for('profile') }}" method="POST">
+            <div class="mb-3">
+              <label class="form-label small fw-semibold text-muted">Full Name</label>
+              <input type="text" name="name" class="form-control" value="{{ user.name }}" required>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label small fw-semibold text-muted">Location / District</label>
+              <input type="text" name="location" class="form-control" value="{{ user.location or '' }}">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label small fw-semibold text-muted">Clean Energy Interest</label>
+              <input type="text" name="energy_interest" class="form-control" value="{{ user.energy_interest or '' }}">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label small fw-semibold text-muted">Short Bio / Clean Energy Goals</label>
+              <textarea name="bio" class="form-control" rows="3" placeholder="Tell the community about your clean energy journey...">{{ user.bio or '' }}</textarea>
+            </div>
+
+            <button type="submit" class="btn btn-emerald w-100 fw-semibold">
+              <i class="bi bi-check2-circle me-1"></i> Save Profile Changes
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- User Activity (Saved Calculations & Posts) -->
+      <div class="col-lg-8">
+        <!-- Saved Calculations -->
+        <div class="p-4 bg-white rounded-4 border shadow-sm mb-4">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold mb-0 text-dark"><i class="bi bi-calculator text-primary me-2"></i> Saved Solar Calculations</h5>
+            <a href="{{ url_for('calculator') }}" class="btn btn-sm btn-outline-emerald">+ New Calculation</a>
+          </div>
+
+          {% if user_calculations %}
+            <div class="table-responsive">
+              <table class="table table-hover align-middle mb-0 small">
+                <thead class="table-light">
+                  <tr>
+                    <th>Date</th>
+                    <th>Recommended kW</th>
+                    <th>Monthly Savings</th>
+                    <th>Annual Savings</th>
+                    <th>CO₂ Reduced</th>
+                    <th>Payback</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for calc in user_calculations %}
+                    <tr>
+                      <td class="text-muted">{{ calc.created_at.strftime('%b %d, %Y') }}</td>
+                      <td><span class="badge bg-light text-dark border">{{ calc.recommended_kw }} kW</span></td>
+                      <td class="text-success fw-bold">${{ "%.0f"|format(calc.monthly_savings) }}/mo</td>
+                      <td class="text-success fw-bold">${{ "%.0f"|format(calc.annual_savings) }}/yr</td>
+                      <td>{{ calc.co2_reduction_tons }} Tons/yr</td>
+                      <td>{{ calc.payback_years }} Yrs</td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          {% else %}
+            <div class="p-4 bg-light rounded-3 text-center">
+              <p class="text-muted small mb-2">You haven't saved any solar calculations yet.</p>
+              <a href="{{ url_for('calculator') }}" class="btn btn-sm btn-emerald">Run Savings Calculator</a>
+            </div>
+          {% endif %}
+        </div>
+
+        <!-- Community Posts -->
+        <div class="p-4 bg-white rounded-4 border shadow-sm">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold mb-0 text-dark"><i class="bi bi-chat-quote-fill text-success me-2"></i> Your Community Stories & Posts</h5>
+            <a href="{{ url_for('community') }}" class="btn btn-sm btn-outline-secondary">Go to Forum</a>
+          </div>
+
+          {% if user_posts %}
+            <div class="d-flex flex-column gap-3">
+              {% for post in user_posts %}
+                <div class="p-3 bg-light rounded-3 border">
+                  <div class="d-flex justify-content-between align-items-center mb-1">
+                    <span class="badge bg-white text-secondary border small">{{ post.category }}</span>
+                    <small class="text-muted">{{ post.created_at.strftime('%b %d, %Y') }}</small>
+                  </div>
+                  <h6 class="fw-bold mb-1 text-dark">{{ post.title }}</h6>
+                  <p class="text-muted small mb-2">{{ post.content[:120] }}...</p>
+                  <div class="d-flex gap-3 small text-muted">
+                    <span><i class="bi bi-hand-thumbs-up text-success me-1"></i> {{ post.upvotes }} upvotes</span>
+                    <span><i class="bi bi-chat-left text-primary me-1"></i> {{ post.comments|length }} comments</span>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <div class="p-4 bg-light rounded-3 text-center">
+              <p class="text-muted small mb-2">You haven't shared any community experiences yet.</p>
+              <a href="{{ url_for('community') }}" class="btn btn-sm btn-outline-emerald">Share Your Experience</a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
